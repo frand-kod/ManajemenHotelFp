@@ -47,11 +47,6 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             }
             return result;
         }
-
-
-
-
-
         public List<RoomEntity> ReadAll()
         {
             List<RoomEntity> list = new List<RoomEntity>();
@@ -156,7 +151,6 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             }
             return result;
         }
-
         public int Delete(RoomEntity room)
         {
             int result = 0;
@@ -180,5 +174,38 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
 
             return result; // Tambahkan kembalikan nilai result di sini
         }
+
+        public Dictionary<string, int> GetRoomCountsByType()
+        {
+            Dictionary<string, int> roomCounts = new Dictionary<string, int>();
+
+            string sql = @"
+        SELECT type_room, COUNT(*) AS jumlah_kamar
+        FROM room
+        GROUP BY type_room";
+
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
+            {
+                try
+                {
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string typeRoom = reader["type_room"].ToString();
+                            int count = Convert.ToInt32(reader["jumlah_kamar"]);
+                            roomCounts[typeRoom] = count;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error fetching room counts: {ex.Message}");
+                }
+            }
+
+            return roomCounts;
+        }
+
     }
 }

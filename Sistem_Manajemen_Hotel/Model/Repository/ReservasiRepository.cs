@@ -96,7 +96,7 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
         public List<ReservasiEntity> ReadAll()
         {
             List<ReservasiEntity> list = new List<ReservasiEntity>();
-            string sql = "SELECT * From reservasi ";
+            string sql = "SELECT * FROM reservasi";
 
             try
             {
@@ -126,6 +126,7 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             }
             return list;
         }
+
 
         public int Update(ReservasiEntity reservation)
         {

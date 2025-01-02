@@ -65,6 +65,7 @@ namespace Sistem_Manajemen_Hotel.View
             lvwRoom.Columns.Add("Nama Kamar ", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Jenis Kamar", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Harga", 200, HorizontalAlignment.Center);
+            lvwRoom.Columns.Add("Status", 200, HorizontalAlignment.Center);
         }
         private void btnAdd_Room_Click(object sender, EventArgs e)
         {

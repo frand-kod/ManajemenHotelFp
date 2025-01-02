@@ -73,16 +73,13 @@ namespace Sistem_Manajemen_Hotel.Controller
 
         public List<ReservasiEntity> ReadAll()
         {
-            List<ReservasiEntity> list = new List<ReservasiEntity>();
-
-            using (DbContext context = new DbContext())
+            using (DbContext context = new DbContext())  // Pastikan DbContext diinisialisasi dengan benar
             {
-                _reservationRepository = new ReservasiRepository(context);
-                list = _reservationRepository.ReadAll();
+                _reservationRepository = new ReservasiRepository(context);  // Mengirimkan DbContext
+                return _reservationRepository.ReadAll();
             }
-
-            return list;
         }
+
 
         public int Update(ReservasiEntity reservation)
         {

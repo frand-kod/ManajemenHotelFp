@@ -241,9 +241,9 @@
             this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(31, 113);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(108, 18);
+            this.label5.Size = new System.Drawing.Size(122, 18);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Room Name :";
+            this.label5.Text = "Room Number :";
             // 
             // RoomType
             // 

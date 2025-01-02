@@ -13,5 +13,6 @@ namespace Sistem_Manajemen_Hotel.Model.Entity
         public string TypeRoom { get; set; }
         public int Price { get; set; }
         public string Availability { get; set; }
+        public int RoomCount { get; set; }
     }
 }

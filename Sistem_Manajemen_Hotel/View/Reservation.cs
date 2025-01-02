@@ -54,8 +54,8 @@ namespace Sistem_Manajemen_Hotel.View
             lvwReservation.GridLines = true;
             lvwReservation.Columns.Add("NO.", 65, HorizontalAlignment.Center);
             lvwReservation.Columns.Add("ID.Reservasi", 150, HorizontalAlignment.Center);
-            lvwReservation.Columns.Add("Nama Client", 175, HorizontalAlignment.Center);
-            lvwReservation.Columns.Add("Room Type", 175, HorizontalAlignment.Center);
+            lvwReservation.Columns.Add("id room", 175, HorizontalAlignment.Center);
+            lvwReservation.Columns.Add("ID Client", 175, HorizontalAlignment.Center);
             lvwReservation.Columns.Add("Masuk", 175, HorizontalAlignment.Center);
             lvwReservation.Columns.Add("Keluar", 175, HorizontalAlignment.Center);
         }
@@ -128,44 +128,68 @@ namespace Sistem_Manajemen_Hotel.View
             }
 
         }
-
         private void listReservation_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvwReservation.SelectedItems.Count > 0)
             {
                 var selectedItem = lvwReservation.SelectedItems[0];
+
+                // Debug: Cek nilai SubItems dan teksnya
+                Debug.WriteLine("Isi SubItems[1]: " + selectedItem.SubItems[1].Text);
+                Debug.WriteLine("Isi SubItems[2]: " + selectedItem.SubItems[2].Text);
+                Debug.WriteLine("Isi SubItems[3]: " + selectedItem.SubItems[3].Text);
+                Debug.WriteLine("Isi SubItems[4]: " + selectedItem.SubItems[4].Text);
+                Debug.WriteLine("Isi SubItems[5]: " + selectedItem.SubItems[5].Text);
+
+
                 cmbListRoomId.Text = selectedItem.SubItems[1].Text;
                 cmbListClientId.Text = selectedItem.SubItems[2].Text;
-                DateInsertFieldIn.Text = selectedItem.SubItems[3].Text;
-                DateInsertFieldOut.Text = selectedItem.SubItems[4].Text;
 
 
+
+                // Format yang sesuai dengan format "03 January 2025"
+                string format = "dd MMMM yyyy";
+
+                // Konversi teks menjadi DateTime untuk tanggal masuk
+                if (DateTime.TryParseExact(selectedItem.SubItems[4].Text, format,
+                     System.Globalization.CultureInfo.InvariantCulture,
+                     System.Globalization.DateTimeStyles.None, out DateTime masukDate))
+                {
+                    DateInsertFieldIn.Value = masukDate;  // Set ke DateTimePicker
+                }
+                else
+                {
+                    MessageBox.Show("Tanggal masuk tidak valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Konversi teks menjadi DateTime untuk tanggal keluar
+                if (DateTime.TryParseExact(selectedItem.SubItems[5].Text, format,
+                     System.Globalization.CultureInfo.InvariantCulture,
+                     System.Globalization.DateTimeStyles.None, out DateTime keluarDate))
+                {
+                    DateInsertFieldOut.Value = keluarDate;  // Set ke DateTimePicker
+                }
+                else
+                {
+                    MessageBox.Show("Tanggal keluar tidak valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
 
         private void btnAdd_Reservation_Click(object sender, EventArgs e)
         {
             try
             {
-                Debug.WriteLine("=== Memulai proses penambahan reservasi ===");
+                // Ambil nilai ID room yang dipilih
+                int id_room = Convert.ToInt32(cmbListRoomId.SelectedItem);
 
-                // Ambil nilai dari input
-                int id_room = Convert.ToInt32(cmbListRoomId.SelectedValue);
-                int idclient = Convert.ToInt32(cmbListClientId.SelectedValue);
+                // Ambil nilai ID client yang dipilih
+                int idclient = Convert.ToInt32(cmbListClientId.SelectedItem);
 
                 // Ambil nilai dari DateTimePicker
-                DateTime masuk = DateInsertFieldIn.Value;
-                DateTime keluar = DateInsertFieldOut.Value;
-
-                // Format tanggal ke string untuk disimpan di database
-                string masukFormatted = masuk.ToString("yyyy-MM-dd");
-                string keluarFormatted = keluar.ToString("yyyy-MM-dd");
-
-                // Debugging: Periksa nilai input
-                Debug.WriteLine($"Nilai id_room: {id_room}");
-                Debug.WriteLine($"Nilai id_client: {idclient}");
-                Debug.WriteLine($"Tanggal masuk: {masukFormatted}");
-                Debug.WriteLine($"Tanggal keluar: {keluarFormatted}");
+                string masukFormatted = DateInsertFieldIn.Text;  // Ambil teks dari DateTimePicker
+                string keluarFormatted = DateInsertFieldOut.Text;  // Ambil teks dari DateTimePicker
 
                 // Membuat objek reservasi baru
                 ReservasiEntity newReservasi = new ReservasiEntity
@@ -176,20 +200,15 @@ namespace Sistem_Manajemen_Hotel.View
                     keluar = keluarFormatted
                 };
 
-                // Debugging: Tampilkan detail objek yang akan dikirim
-                Debug.WriteLine($"Membuat ReservasiEntity: id_client={newReservasi.id_client}, id_room={newReservasi.id_room}, masuk={newReservasi.masuk}, keluar={newReservasi.keluar}");
-
                 // Proses penyimpanan ke database
                 int result = reservasiController.Create(newReservasi);
 
                 if (result > 0)
                 {
-                    Debug.WriteLine("Reservasi berhasil disimpan ke database.");
                     MessageBox.Show("Data Reservation berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Refresh data setelah penyimpanan berhasil
                     LoadDataReservation();
-                    Debug.WriteLine("Data reservation telah dimuat ulang.");
 
                     // Reset input field
                     cmbListRoomId.SelectedIndex = -1;
@@ -199,37 +218,19 @@ namespace Sistem_Manajemen_Hotel.View
                 }
                 else
                 {
-                    Debug.WriteLine("Reservasi gagal disimpan ke database.");
                     MessageBox.Show("Data Reservation gagal disimpan!!!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                    // Debugging: Periksa nilai input jika gagal
-                    Debug.WriteLine("Debugging setelah kegagalan penyimpanan:");
-                    Debug.WriteLine($"Nilai id_room: {id_room}");
-                    Debug.WriteLine($"Nilai id_client: {idclient}");
-                    Debug.WriteLine($"Tanggal masuk: {masukFormatted}");
-                    Debug.WriteLine($"Tanggal keluar: {keluarFormatted}");
-
-                    Debug.WriteLine($"ComboBox Room Type Selected Item: {cmbListRoomId.SelectedItem}");
-                    Debug.WriteLine($"ComboBox Room Type Text: {cmbListRoomId.Text}");
-                    Debug.WriteLine($"ComboBox Client Selected Item: {cmbListClientId.SelectedItem}");
-                    Debug.WriteLine($"ComboBox Client Text: {cmbListClientId.Text}");
                 }
             }
             catch (FormatException ex)
             {
-                Debug.WriteLine($"FormatException: {ex.Message}");
                 MessageBox.Show("Pastikan input id client adalah angka.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Exception: {ex.Message}");
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                Debug.WriteLine("=== Proses penambahan reservasi selesai ===");
-            }
         }
+
 
 
         private void btnUpdate_Reservation_Click(object sender, EventArgs e)
@@ -238,24 +239,42 @@ namespace Sistem_Manajemen_Hotel.View
             {
                 try
                 {
-                    int id_room = Convert.ToInt32(cmbListRoomId.SelectedValue);
-                    int idclient = int.Parse(cmbListClientId.Text);
-                    string masuk = DateInsertFieldIn.Text;
-                    string keluar = DateInsertFieldOut.Text;
+                    // Ambil id_reservasi dari SubItems di ListView (bukan menggunakan selectedIndex)
+                    int id_reservasi = Convert.ToInt32(lvwReservation.SelectedItems[0].SubItems[1].Text);
+                    Debug.WriteLine($"id_reservasi: {id_reservasi}");
 
+                    // Ambil data lainnya dari ComboBox dan DateTimePicker
+                    int id_room = Convert.ToInt32(cmbListRoomId.SelectedItem);
+                    Debug.WriteLine($"id_room: {id_room}");
+
+                    int id_client = Convert.ToInt32(cmbListClientId.SelectedItem);
+                    Debug.WriteLine($"id_client: {id_client}");
+
+                    string masuk = DateInsertFieldIn.Text;
+                    Debug.WriteLine($"Tanggal Masuk: {masuk}");
+
+                    string keluar = DateInsertFieldOut.Text;
+                    Debug.WriteLine($"Tanggal Keluar: {keluar}");
+
+                    // Buat objek ReservasiEntity dengan data yang diambil
                     ReservasiEntity reservation = new ReservasiEntity
                     {
-                        id_client = Convert.ToInt32(idclient),
-                        id_room = id_room,
+                        id_reservasi = id_reservasi, // Gunakan id_reservasi yang diambil dari ListView
+                        id_client = id_client, // Gunakan id_client yang dipilih
+                        id_room = id_room, // Gunakan id_room yang dipilih
                         masuk = masuk,
                         keluar = keluar
                     };
 
+                    // Debugging: Tampilkan detail objek ReservasiEntity yang akan diperbarui
+                    Debug.WriteLine($"Mengedit -- ReservasiEntity: id_reservasi={reservation.id_reservasi}, id_client={reservation.id_client}, id_room={reservation.id_room}, masuk={reservation.masuk}, keluar={reservation.keluar}");
+
+                    // Update data reservasi
                     int result = reservasiController.Update(reservation);
                     if (result > 0)
                     {
-                        MessageBox.Show("Data Resevation berhasil diubah!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadDataReservation();
+                        MessageBox.Show("Data Reservation berhasil diubah!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadDataReservation();  // Refresh data
                         cmbListRoomId.Text = "";
                         cmbListClientId.Text = "";
                         DateInsertFieldIn.Text = "";
@@ -269,12 +288,11 @@ namespace Sistem_Manajemen_Hotel.View
                 catch (FormatException ex)
                 {
                     Debug.WriteLine($"FormatException: {ex.Message}");
-                    Debug.WriteLine($"StackTrace: {ex.StackTrace}");
                     MessageBox.Show("Format data salah. Pastikan input Anda benar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
                 catch (Exception ex)
                 {
+                    Debug.WriteLine($"Exception: {ex.Message}");
                     MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -283,6 +301,9 @@ namespace Sistem_Manajemen_Hotel.View
                 MessageBox.Show("Pilih salah satu barang untuk diedit!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+
+
 
         private void btnDelete_Reservation_Click(object sender, EventArgs e)
         {
