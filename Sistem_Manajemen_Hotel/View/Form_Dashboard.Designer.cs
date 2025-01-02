@@ -191,6 +191,7 @@
             this.lblUsernameDashboard.Size = new System.Drawing.Size(18, 19);
             this.lblUsernameDashboard.TabIndex = 2;
             this.lblUsernameDashboard.Text = "?";
+            this.lblUsernameDashboard.Click += new System.EventHandler(this.lblUsernameDashboard_Click);
             // 
             // label1
             // 

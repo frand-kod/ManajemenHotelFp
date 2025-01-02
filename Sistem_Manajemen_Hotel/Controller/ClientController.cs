@@ -28,7 +28,7 @@ namespace Sistem_Manajemen_Hotel.Controller
                 MessageBox.Show("Lastname client harus diisi !!!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return 0;
             }
-            if (client.Phone == null)
+            if (client.Phone == 0)
             {
                 MessageBox.Show("Phone client harus diisi !!!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return 0;

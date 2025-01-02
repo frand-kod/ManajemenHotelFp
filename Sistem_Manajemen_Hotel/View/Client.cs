@@ -224,6 +224,7 @@ namespace Sistem_Manajemen_Hotel.View
             {
                 var noUrut = lvwClient.Items.Count + 1;
                 var item = new ListViewItem(noUrut.ToString());
+                item.SubItems.Add(client.Id);
                 item.SubItems.Add(client.Firstname);
                 item.SubItems.Add(client.Lastname);
                 item.SubItems.Add(client.Phone.ToString());

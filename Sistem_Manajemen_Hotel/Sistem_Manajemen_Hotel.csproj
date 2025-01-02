@@ -70,16 +70,16 @@
   <ItemGroup>
     <Compile Include="Controller\ClientController.cs" />
     <Compile Include="Controller\LoginController.cs" />
-    <Compile Include="Controller\ReservationController.cs" />
+    <Compile Include="Controller\ReservasiController.cs" />
     <Compile Include="Controller\RoomController.cs" />
     <Compile Include="Model\Context\DbContext.cs" />
     <Compile Include="Model\Entity\ClientEntity.cs" />
     <Compile Include="Model\Entity\LoginEntity.cs" />
-    <Compile Include="Model\Entity\ReservationEntity.cs" />
+    <Compile Include="Model\Entity\ReservasiEntity.cs" />
     <Compile Include="Model\Entity\RoomEntity.cs" />
     <Compile Include="Model\Repository\ClientRepository.cs" />
     <Compile Include="Model\Repository\LoginRepository.cs" />
-    <Compile Include="Model\Repository\ReservationRepository.cs" />
+    <Compile Include="Model\Repository\ReservasiRepository.cs" />
     <Compile Include="Model\Repository\RoomRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

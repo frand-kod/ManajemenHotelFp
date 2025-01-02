@@ -22,64 +22,36 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
         public int Create(RoomEntity room)
         {
             int result = 0;
-            //string sql = @"INSERT INTO room (room_number, availability, type_room,price) VALUES (@room_number, @availability, @type_room,@price)";
-
-            string sql = @"INSERT INTO room (room_number, availability, type_room, harga) 
-               VALUES (@room_number, @availability, @type_room, @harga);";
-            //string pragmaSql = "PRAGMA integrity_check;";
-
+            string sql = @"
+    INSERT INTO room (room_number, type_room, harga, availability)
+    VALUES (@room_number, @type_room, @price, @availability)";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
-                Debug.WriteLine($"dari repo create --roomNumber: {room.RoomNumber}, availability: {room.Availability}, typeRoom: {room.TypeRoom}, price: {room.Price}");
-
+                // Menambahkan parameter
                 cmd.Parameters.AddWithValue("@room_number", room.RoomNumber);
-                cmd.Parameters.AddWithValue("@availability", room.Availability);
                 cmd.Parameters.AddWithValue("@type_room", room.TypeRoom);
-                cmd.Parameters.AddWithValue("@harga", room.Price);
-
+                cmd.Parameters.AddWithValue("@price", room.Price);
+                cmd.Parameters.AddWithValue("@availability", room.Availability);
 
                 try
                 {
-                    // jalankan perintah INSERT dan tampung hasilnya ke dalam variabel result
                     result = cmd.ExecuteNonQuery();
+                    Debug.WriteLine($"Rows inserted: {result}");
                 }
                 catch (Exception ex)
                 {
-
-
-                    System.Diagnostics.Debug.Print("Create error: {0}", ex.Message);
-                    PragmaChecker();
+                    Debug.WriteLine($"Error inserting room: {ex.Message}");
+                    Debug.WriteLine($"SQL Parameters: RoomNumber = {room.RoomNumber}, TypeRoom = {room.TypeRoom}, Price = {room.Price}, Availability = {room.Availability}");
                 }
-                return result;
             }
+            return result;
         }
 
 
 
-            private int PragmaChecker() {
-            using (var connection = new SQLiteConnection(_conn))
-            {
-                connection.Open();
-                string checkTableQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='rooms';";
-                using (var command = new SQLiteCommand(checkTableQuery, connection))
-                {
-                    var tableName = command.ExecuteScalar();
-                    if (tableName == null)
-                    {
-                        Debug.WriteLine("Table 'rooms' does not exist in the database.");
-                        return 1;
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Table 'rooms' found.");
-                        return 0;
-                    }
-                }
-            }
 
 
-        }
         public List<RoomEntity> ReadAll()
         {
             List<RoomEntity> list = new List<RoomEntity>();
@@ -99,30 +71,34 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
                             room.RoomNumber = Convert.ToInt32(reader["room_number"]);
                             room.Availability = reader["availability"].ToString();
                             room.TypeRoom = reader["type_room"].ToString();
-                            room.Price = Convert.ToInt32(reader["price"]);
+                            room.Price = Convert.ToInt32(reader["harga"]);
 
                             list.Add(room);
+                            //Debug.WriteLine($"dari repo readall --roomNumber: {room.RoomNumber}, availability: {room.Availability}, typeRoom: {room.TypeRoom}, price: {room.Price}");
                         }
+
                     }
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.Print("ReadAll error: {0}", ex.Message);
+
+                
             }
             return list;
         }
-        public List<RoomEntity> ReadByNama(string nama)
+        public List<RoomEntity> ReadByIdRoom(string idRoom)
         {
             List<RoomEntity> list = new List<RoomEntity>();
             try
             {
 
-                string sql = @"SELECT id_room, room_number, availability, type_room FROM room WHERE type_room LIKE @type_room";
+                string sql = @"SELECT id_room, room_number, availability, type_room FROM room WHERE id_room LIKE @id_room";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
                 {
-                    cmd.Parameters.AddWithValue("@type_room", string.Format("%{0}%", nama));
+                    cmd.Parameters.AddWithValue("@id_room", string.Format("%{0}%", idRoom));
 
                     using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
@@ -151,7 +127,13 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
         public int Update(RoomEntity room)
         {
             int result = 0;
-            string sql = @"UPDATE Barang SET NamaBarang = @nama, Deskripsi = @deskripsi, Harga = @harga, Stok = @stok WHERE BarangID = @id";
+
+            string sql = @"UPDATE room 
+                   SET room_number = @room_number, 
+                       availability = @availability, 
+                       type_room = @type_room, 
+                       harga = @harga 
+                   WHERE id_room = @id_room";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
@@ -159,6 +141,7 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
                 cmd.Parameters.AddWithValue("@room_number", room.RoomNumber);
                 cmd.Parameters.AddWithValue("@availability", room.Availability);
                 cmd.Parameters.AddWithValue("@type_room", room.TypeRoom);
+                cmd.Parameters.AddWithValue("@harga", room.Price);
 
                 try
                 {
@@ -167,22 +150,27 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.Print("Update error: {0}", ex.Message);
+                    Debug.WriteLine($"dari repo Update --roomNumber: {room.RoomNumber}, availability: {room.Availability}, typeRoom: {room.TypeRoom}, price: {room.Price}");
+
                 }
             }
             return result;
         }
+
         public int Delete(RoomEntity room)
         {
             int result = 0;
-            string sql = @"DELETE FROM Barang WHERE BarangID = @id";
+            string sql = @"DELETE FROM room WHERE id_room = @id_room";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
-                cmd.Parameters.AddWithValue("@id", room.IdRoom);
+                cmd.Parameters.AddWithValue("@id_room", room.IdRoom);
 
                 try
                 {
                     result = cmd.ExecuteNonQuery();
+                    Debug.WriteLine($"dari repo Delete --room id :{room.IdRoom}, roomNumber: {room.RoomNumber}, availability: {room.Availability}, typeRoom: {room.TypeRoom}, price: {room.Price}");
+
                 }
                 catch (Exception ex)
                 {

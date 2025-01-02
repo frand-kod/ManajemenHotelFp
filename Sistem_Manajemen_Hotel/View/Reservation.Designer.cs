@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.grbClient = new System.Windows.Forms.GroupBox();
-            this.dtp_Out = new System.Windows.Forms.DateTimePicker();
-            this.dtp_In = new System.Windows.Forms.DateTimePicker();
-            this.cmbRoomType = new System.Windows.Forms.ComboBox();
+            this.cmbListClientId = new System.Windows.Forms.ComboBox();
+            this.DateInsertFieldOut = new System.Windows.Forms.DateTimePicker();
+            this.DateInsertFieldIn = new System.Windows.Forms.DateTimePicker();
+            this.cmbListRoomId = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.RoomType = new System.Windows.Forms.Label();
+            this.lblClient = new System.Windows.Forms.Label();
+            this.lblIdRoom = new System.Windows.Forms.Label();
             this.lvwReservation = new System.Windows.Forms.ListView();
             this.txtSearch_Reservation = new System.Windows.Forms.TextBox();
-            this.txtIdClient = new System.Windows.Forms.TextBox();
             this.btnDelete_Reservation = new System.Windows.Forms.Button();
             this.btnUpdate_Reservation = new System.Windows.Forms.Button();
             this.btnSearch_Reservation = new System.Windows.Forms.Button();
@@ -49,17 +49,17 @@
             // 
             // grbClient
             // 
-            this.grbClient.Controls.Add(this.dtp_Out);
-            this.grbClient.Controls.Add(this.dtp_In);
-            this.grbClient.Controls.Add(this.cmbRoomType);
+            this.grbClient.Controls.Add(this.cmbListClientId);
+            this.grbClient.Controls.Add(this.DateInsertFieldOut);
+            this.grbClient.Controls.Add(this.DateInsertFieldIn);
+            this.grbClient.Controls.Add(this.cmbListRoomId);
             this.grbClient.Controls.Add(this.label1);
             this.grbClient.Controls.Add(this.label4);
             this.grbClient.Controls.Add(this.label3);
-            this.grbClient.Controls.Add(this.label2);
-            this.grbClient.Controls.Add(this.RoomType);
+            this.grbClient.Controls.Add(this.lblClient);
+            this.grbClient.Controls.Add(this.lblIdRoom);
             this.grbClient.Controls.Add(this.lvwReservation);
             this.grbClient.Controls.Add(this.txtSearch_Reservation);
-            this.grbClient.Controls.Add(this.txtIdClient);
             this.grbClient.Controls.Add(this.btnDelete_Reservation);
             this.grbClient.Controls.Add(this.btnUpdate_Reservation);
             this.grbClient.Controls.Add(this.btnSearch_Reservation);
@@ -73,29 +73,38 @@
             this.grbClient.TabStop = false;
             this.grbClient.Text = "[ Search Reservation : ]";
             // 
-            // dtp_Out
+            // cmbListClientId
             // 
-            this.dtp_Out.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtp_Out.Location = new System.Drawing.Point(587, 99);
-            this.dtp_Out.Name = "dtp_Out";
-            this.dtp_Out.Size = new System.Drawing.Size(367, 26);
-            this.dtp_Out.TabIndex = 5;
+            this.cmbListClientId.FormattingEnabled = true;
+            this.cmbListClientId.Location = new System.Drawing.Point(133, 99);
+            this.cmbListClientId.Name = "cmbListClientId";
+            this.cmbListClientId.Size = new System.Drawing.Size(392, 26);
+            this.cmbListClientId.TabIndex = 6;
             // 
-            // dtp_In
+            // DateInsertFieldOut
             // 
-            this.dtp_In.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtp_In.Location = new System.Drawing.Point(587, 48);
-            this.dtp_In.Name = "dtp_In";
-            this.dtp_In.Size = new System.Drawing.Size(367, 26);
-            this.dtp_In.TabIndex = 5;
+            this.DateInsertFieldOut.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateInsertFieldOut.Location = new System.Drawing.Point(587, 99);
+            this.DateInsertFieldOut.Name = "DateInsertFieldOut";
+            this.DateInsertFieldOut.Size = new System.Drawing.Size(367, 26);
+            this.DateInsertFieldOut.TabIndex = 5;
             // 
-            // cmbRoomType
+            // DateInsertFieldIn
             // 
-            this.cmbRoomType.FormattingEnabled = true;
-            this.cmbRoomType.Location = new System.Drawing.Point(133, 48);
-            this.cmbRoomType.Name = "cmbRoomType";
-            this.cmbRoomType.Size = new System.Drawing.Size(392, 26);
-            this.cmbRoomType.TabIndex = 4;
+            this.DateInsertFieldIn.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateInsertFieldIn.Location = new System.Drawing.Point(587, 48);
+            this.DateInsertFieldIn.Name = "DateInsertFieldIn";
+            this.DateInsertFieldIn.Size = new System.Drawing.Size(367, 26);
+            this.DateInsertFieldIn.TabIndex = 5;
+            this.DateInsertFieldIn.ValueChanged += new System.EventHandler(this.DateInsertFieldIn_ValueChanged);
+            // 
+            // cmbListRoomId
+            // 
+            this.cmbListRoomId.FormattingEnabled = true;
+            this.cmbListRoomId.Location = new System.Drawing.Point(133, 48);
+            this.cmbListRoomId.Name = "cmbListRoomId";
+            this.cmbListRoomId.Size = new System.Drawing.Size(392, 26);
+            this.cmbListRoomId.TabIndex = 4;
             // 
             // label1
             // 
@@ -127,25 +136,25 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "In :";
             // 
-            // label2
+            // lblClient
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(29, 102);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "ID Client      :";
+            this.lblClient.AutoSize = true;
+            this.lblClient.ForeColor = System.Drawing.Color.Black;
+            this.lblClient.Location = new System.Drawing.Point(29, 102);
+            this.lblClient.Name = "lblClient";
+            this.lblClient.Size = new System.Drawing.Size(97, 18);
+            this.lblClient.TabIndex = 0;
+            this.lblClient.Text = "Id Client      :";
             // 
-            // RoomType
+            // lblIdRoom
             // 
-            this.RoomType.AutoSize = true;
-            this.RoomType.ForeColor = System.Drawing.Color.Black;
-            this.RoomType.Location = new System.Drawing.Point(29, 51);
-            this.RoomType.Name = "RoomType";
-            this.RoomType.Size = new System.Drawing.Size(98, 18);
-            this.RoomType.TabIndex = 0;
-            this.RoomType.Text = "Room Type :";
+            this.lblIdRoom.AutoSize = true;
+            this.lblIdRoom.ForeColor = System.Drawing.Color.Black;
+            this.lblIdRoom.Location = new System.Drawing.Point(29, 51);
+            this.lblIdRoom.Name = "lblIdRoom";
+            this.lblIdRoom.Size = new System.Drawing.Size(69, 18);
+            this.lblIdRoom.TabIndex = 0;
+            this.lblIdRoom.Text = "Id Room";
             // 
             // lvwReservation
             // 
@@ -162,13 +171,6 @@
             this.txtSearch_Reservation.Name = "txtSearch_Reservation";
             this.txtSearch_Reservation.Size = new System.Drawing.Size(392, 26);
             this.txtSearch_Reservation.TabIndex = 1;
-            // 
-            // txtIdClient
-            // 
-            this.txtIdClient.Location = new System.Drawing.Point(133, 99);
-            this.txtIdClient.Name = "txtIdClient";
-            this.txtIdClient.Size = new System.Drawing.Size(392, 26);
-            this.txtIdClient.TabIndex = 1;
             // 
             // btnDelete_Reservation
             // 
@@ -249,20 +251,20 @@
         #endregion
 
         private System.Windows.Forms.GroupBox grbClient;
-        private System.Windows.Forms.DateTimePicker dtp_Out;
-        private System.Windows.Forms.DateTimePicker dtp_In;
-        private System.Windows.Forms.ComboBox cmbRoomType;
+        private System.Windows.Forms.DateTimePicker DateInsertFieldOut;
+        private System.Windows.Forms.DateTimePicker DateInsertFieldIn;
+        private System.Windows.Forms.ComboBox cmbListRoomId;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label RoomType;
+        private System.Windows.Forms.Label lblClient;
+        private System.Windows.Forms.Label lblIdRoom;
         private System.Windows.Forms.ListView lvwReservation;
         private System.Windows.Forms.TextBox txtSearch_Reservation;
-        private System.Windows.Forms.TextBox txtIdClient;
         private System.Windows.Forms.Button btnDelete_Reservation;
         private System.Windows.Forms.Button btnUpdate_Reservation;
         private System.Windows.Forms.Button btnSearch_Reservation;
         private System.Windows.Forms.Button btnAdd_Reservation;
+        private System.Windows.Forms.ComboBox cmbListClientId;
     }
 }

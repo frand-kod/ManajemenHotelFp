@@ -16,6 +16,7 @@ namespace Sistem_Manajemen_Hotel.View
 {
     public partial class Room : UserControl
     {
+        private List<RoomEntity> listRoom = new List<RoomEntity>();
         private RoomController controller;
         public Room()
         {
@@ -33,9 +34,17 @@ namespace Sistem_Manajemen_Hotel.View
             if (lvwRoom.SelectedItems.Count > 0)
             {
                 var selectedItem = lvwRoom.SelectedItems[0];
-                RoomType.Text = selectedItem.SubItems[1].Text;
+                txtRooomId.Text = selectedItem.SubItems[1].Text;
                 txtNumberRoom.Text = selectedItem.SubItems[2].Text;
-                txtPrice.Text = selectedItem.SubItems[3].Text;
+               
+                cmbRoomType.Text = selectedItem.SubItems[3].Text;
+                txtPrice.Text = selectedItem.SubItems[4].Text;
+
+                string status = selectedItem.SubItems[5].Text;  // Get the status ("Yes" or "No")
+
+                // Update the RadioButtons based on the status
+                rdbAvailabe.Checked = (status == "Yes");
+                rdbNotAvail.Checked = (status == "No");
 
             }
         }
@@ -53,7 +62,6 @@ namespace Sistem_Manajemen_Hotel.View
             lvwRoom.FullRowSelect = true;
             lvwRoom.GridLines = true;
             lvwRoom.Columns.Add("NO.", 65, HorizontalAlignment.Center);
-            lvwRoom.Columns.Add("id Kamar.", 65, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Nama Kamar ", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Jenis Kamar", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Harga", 200, HorizontalAlignment.Center);
@@ -62,48 +70,44 @@ namespace Sistem_Manajemen_Hotel.View
         {
             try
             {
-                //id room sudah di set auto increment
-
                 string roomNumber = txtNumberRoom.Text;
                 string roomType = cmbRoomType.SelectedItem?.ToString();
                 int price = Convert.ToInt32(txtPrice.Text);
-                string availability = rdbAvailabe.Checked ? "Yes" : "No"; // Memeriksa apakah radio button dipilih
+                string availability = rdbAvailabe.Checked ? "Yes" : "No";
 
                 RoomEntity newRoom = new RoomEntity
                 {
                     RoomNumber = int.Parse(roomNumber),
-                    TypeRoom= roomType,
+                    TypeRoom = roomType,
                     Price = price,
                     Availability = availability
                 };
+
+                Debug.WriteLine($"View - Adding Room: RoomNumber = {newRoom.RoomNumber}, TypeRoom = {newRoom.TypeRoom}, Price = {newRoom.Price}, Availability = {newRoom.Availability}");
+
                 int result = controller.Create(newRoom);
+
                 if (result > 0)
                 {
-                    MessageBox.Show("Data Client berhasil disimpan !", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadDataRoom(); // Refresh data setelah menambahkan barang baru
-                    ClearForm();  // Mengosongkan form
-
+                    MessageBox.Show("Data Room berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadDataRoom();
+                    ClearForm();
                 }
                 else
                 {
-                    MessageBox.Show("Data Client gagal disimpan !!!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    //MessageBox.Show($"dari viewFe ---SQL Parameters: RoomNumber = {newRoom.RoomNumber}, Availability = {newRoom.Availability}, TypeRoom = {newRoom.TypeRoom}, Price = {newRoom.Price}");
-                    //Debug.WriteLine($"dari viewFe ---SQL Parameters: RoomNumber = {newRoom.RoomNumber}, Availability = {newRoom.Availability}, TypeRoom = {newRoom.TypeRoom}, Price = {newRoom.Price}");
-               
-
-
+                    MessageBox.Show("Data Room gagal disimpan!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             catch (FormatException)
             {
-                MessageBox.Show("Pastikan input phone adalah angka.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Pastikan input Room Number dan Harga adalah angka.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
         }
+
 
         private void grbClient_Enter(object sender, EventArgs e)
         {
@@ -113,7 +117,7 @@ namespace Sistem_Manajemen_Hotel.View
         {
             txtNumberRoom.Clear();
             cmbRoomType.SelectedIndex = -1;  // Reset ComboBox
-            txtPrice.Clear();
+            //txtPrice.Clear();
             rdbAvailabe.Checked = true;
         }
         private void LoadDataRoom()
@@ -121,16 +125,151 @@ namespace Sistem_Manajemen_Hotel.View
             RoomRepository RoomRepository = new RoomRepository(new Model.Context.DbContext());
             List<RoomEntity> listRoom = RoomRepository.ReadAll();
             lvwRoom.Items.Clear();
+            int count = 1;
             foreach (var room in listRoom)
             {
                 ListViewItem item = new ListViewItem(room.IdRoom.ToString());
+               // item.SubItems.Add(room.IdRoom.ToString());
+
+                //ListViewItem item = new ListViewItem(room.IdRoom.ToString());
+
                 item.SubItems.Add(room.RoomNumber.ToString());
                 item.SubItems.Add(room.TypeRoom);
                 item.SubItems.Add(room.Price.ToString());
                 item.SubItems.Add(room.Availability);
                 lvwRoom.Items.Add(item);
+
+                count++;
             }
         }
 
+        private void btnUpdate_Room_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string idRoom = lvwRoom.SelectedItems[0].SubItems[1].Text;
+                string roomNumber = txtNumberRoom.Text;
+                string roomType = cmbRoomType.SelectedItem?.ToString();
+                int price = Convert.ToInt32(txtPrice.Text);
+                string availability = rdbAvailabe.Checked ? "Yes" : "No"; // Memeriksa apakah radio button dipilih
+
+
+                RoomEntity UpdateRoom = new RoomEntity
+                {
+                    IdRoom = int.Parse(idRoom),
+                    RoomNumber = int.Parse(roomNumber),
+                    TypeRoom = roomType,
+                    Price = price,
+                    Availability = availability
+                };
+
+                int result = controller.Update(UpdateRoom);
+                if (result > 0)
+                {
+                    MessageBox.Show("Data Client berhasil diubah!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadDataRoom();
+                    cmbRoomType.SelectedIndex = -1;  // Reset ComboBox
+                
+                }
+                else
+                {
+                    MessageBox.Show("Data Client gagal diubah!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Debug.WriteLine($"data dari update =>Id:{idRoom} Firstname: {roomNumber}, Lastname: {price}, Phone: {availability}");
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Pastikan Input Sudah Benar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+
+        private void txtPrice_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbRoomType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Room_Click(object sender, EventArgs e)
+        {
+            if (lvwRoom.SelectedItems.Count > 0)
+            {
+                try
+                {
+                    /*
+                     try
+                {
+                    // Ambil indeks dari item yang dipilih di ListView
+                    int selectedIndex = lvwClient.SelectedItems[0].Index;
+
+                    // Ambil Barang yang sesuai dari List<Barang>
+                    ClientEntity clientToDelete = listClient[selectedIndex];
+
+                    // Panggil method Delete dengan Barang yang akan dihapus
+                    int result = controller.Delete(clientToDelete);
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Data Client berhasil dihapus!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadDataClient(); // Refresh data setelah menghapus data barang
+                        txtFirstname.Text = "";
+                        txtLastname.Text = "";
+                        txtPhoneNo.Text = "";
+                    }
+                     
+                     */
+                    // Ambil indeks dari item yang dipilih di ListView
+                    string idRoom = lvwRoom.SelectedItems[0].SubItems[1].Text;
+
+                    // Ambil Barang yang sesuai dari List<Barang>
+                    RoomEntity RoomDelete = new RoomEntity
+                    {
+                        IdRoom = int.Parse(idRoom) // Ambil ID dari item yang dipilih
+                    };
+
+                    // Panggil method Delete dengan Barang yang akan dihapus
+                    int result = controller.Delete(RoomDelete);
+                    if (result > 0)
+                    {
+                        MessageBox.Show("Data Client berhasil dihapus!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadDataRoom(); // Refresh data setelah menghapus data barang
+                        cmbRoomType.SelectedIndex = -1;  // Reset ComboBox
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data Client gagal dihapus!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Pilih salah satu data untuk dihapus!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
+
+
