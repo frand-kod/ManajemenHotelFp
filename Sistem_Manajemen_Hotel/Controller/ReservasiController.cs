@@ -20,31 +20,31 @@ namespace Sistem_Manajemen_Hotel.Controller
         {
             int result = 0;
 
-            //if (reservation.id_reservasi <= 0)
-            //{
-            //    MessageBox.Show("Id reservasi harus valid!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    return 0;
-            //}
-            //if (string.IsNullOrEmpty(reservation.id_client))
-            //{
-            //    MessageBox.Show("Id client harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    return 0;
-            //}
-            //if (string.IsNullOrEmpty(reservation.room_type))
-            //{
-            //    MessageBox.Show("Tipe ruangan harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    return 0;
-            //}
-            //if (string.IsNullOrEmpty(reservation.masuk))
-            //{
-            //    MessageBox.Show("Tanggal masuk harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    return 0;
-            //}
-            //if (string.IsNullOrEmpty(reservation.keluar))
-            //{
-            //    MessageBox.Show("Tanggal keluar harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    return 0;
-            //}
+            if (reservation.id_reservasi <= 0)
+            {
+               MessageBox.Show("Id reservasi harus valid!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+               return 0;
+            }
+            if (string.IsNullOrEmpty(reservation.id_client))
+            {
+               MessageBox.Show("Id client harus ada !", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+               return 0;
+            }
+            if (string.IsNullOrEmpty(reservation.room_type))
+            {
+               MessageBox.Show("Tipe ruangan harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+               return 0;
+            }
+            if (string.IsNullOrEmpty(reservation.masuk))
+            {
+               MessageBox.Show("Tanggal masuk harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+               return 0;
+            }
+            if (string.IsNullOrEmpty(reservation.keluar))
+            {
+               MessageBox.Show("Tanggal keluar harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+               return 0;
+            }
 
             using (DbContext context = new DbContext())
             {
