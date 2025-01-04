@@ -65,8 +65,8 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
-            this.groupBox1.Controls.Add(this.lkbRegister);
             this.groupBox1.Controls.Add(this.pcbHide);
+            this.groupBox1.Controls.Add(this.lkbRegister);
             this.groupBox1.Controls.Add(this.pcbShow);
             this.groupBox1.Controls.Add(this.txtPasswordLogin);
             this.groupBox1.Controls.Add(this.txtUsernameLogin);
@@ -92,7 +92,7 @@
             this.lkbRegister.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.lkbRegister.Location = new System.Drawing.Point(286, 375);
             this.lkbRegister.Name = "lkbRegister";
-            this.lkbRegister.Size = new System.Drawing.Size(92, 16);
+            this.lkbRegister.Size = new System.Drawing.Size(107, 19);
             this.lkbRegister.TabIndex = 7;
             this.lkbRegister.TabStop = true;
             this.lkbRegister.Text = "Register here";
@@ -127,14 +127,14 @@
             // 
             this.txtPasswordLogin.Location = new System.Drawing.Point(64, 215);
             this.txtPasswordLogin.Name = "txtPasswordLogin";
-            this.txtPasswordLogin.Size = new System.Drawing.Size(270, 23);
+            this.txtPasswordLogin.Size = new System.Drawing.Size(270, 27);
             this.txtPasswordLogin.TabIndex = 5;
             // 
             // txtUsernameLogin
             // 
             this.txtUsernameLogin.Location = new System.Drawing.Point(63, 140);
             this.txtUsernameLogin.Name = "txtUsernameLogin";
-            this.txtUsernameLogin.Size = new System.Drawing.Size(300, 23);
+            this.txtUsernameLogin.Size = new System.Drawing.Size(300, 27);
             this.txtUsernameLogin.TabIndex = 5;
             // 
             // label3
@@ -144,7 +144,7 @@
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.label3.Location = new System.Drawing.Point(59, 103);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 19);
+            this.label3.Size = new System.Drawing.Size(120, 23);
             this.label3.TabIndex = 4;
             this.label3.Text = "Username :";
             // 
@@ -155,7 +155,7 @@
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.label4.Location = new System.Drawing.Point(58, 375);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(222, 16);
+            this.label4.Size = new System.Drawing.Size(265, 19);
             this.label4.TabIndex = 4;
             this.label4.Text = "Don\'t have a registered account?";
             // 
@@ -166,7 +166,7 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.label2.Location = new System.Drawing.Point(59, 179);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 19);
+            this.label2.Size = new System.Drawing.Size(112, 23);
             this.label2.TabIndex = 4;
             this.label2.Text = "Password :";
             // 
@@ -201,7 +201,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.label1.Location = new System.Drawing.Point(604, 380);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(302, 72);
+            this.label1.Size = new System.Drawing.Size(367, 82);
             this.label1.TabIndex = 7;
             this.label1.Text = "SISTEM MANAJEMEN \r\nHOTEL";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -218,7 +218,7 @@
             // 
             // Form_Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 511);
             this.Controls.Add(this.label1);

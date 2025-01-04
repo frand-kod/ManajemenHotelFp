@@ -23,11 +23,11 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             Random random = new Random();
             int randomNumber = random.Next(1000, 10000); // Menghasilkan angka acak antara 1000 dan 9999
 
-            reservation.id_reservasi = Convert.ToInt32 (randomNumber);
+            reservation.id_reservasi = Convert.ToInt32(randomNumber);
 
             string sql = @"
                 INSERT INTO reservasi (id_reservasi,id_client, id_room, masuk, keluar) 
-                                VALUES (@id_reservasi, @id_client, @id_room, @masuk, @keluar)";
+                       VALUES (@id_reservasi, @id_client, @id_room, @masuk, @keluar)";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
@@ -60,7 +60,10 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             try
             {
 
-                string sql = @"SELECT id_reservasi, id_client, id_room, masuk,keluar FROM reservasi WHERE id_reservasi LIKE @id_reservasi";
+                string sql = @"SELECT id_reservasi, id_client, id_room, masuk,keluar 
+                                    FROM reservasi 
+                               WHERE id_reservasi 
+                                    LIKE @id_reservasi";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
                 {
@@ -70,20 +73,18 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
                     {
                         while (reader.Read())
                         {
-                            while (reader.Read())
+                            ReservasiEntity reservation = new ReservasiEntity
                             {
-                                ReservasiEntity reservation = new ReservasiEntity
-                                {
-                                    id_reservasi = Convert.ToInt32(reader["id_reservasi"]),
-                                    id_client = Convert.ToInt32( reader["id_client"]),
-                                    id_room = Convert.ToInt32(reader["room_type"]),
-                                    masuk = reader["masuk"].ToString(),
-                                    keluar = reader["keluar"].ToString()
-                                };
+                                id_reservasi = Convert.ToInt32(reader["id_reservasi"]),
+                                id_client = Convert.ToInt32(reader["id_client"]),
+                                id_room = Convert.ToInt32(reader["room_type"]),
+                                masuk = reader["masuk"].ToString(),
+                                keluar = reader["keluar"].ToString()
+                            };
 
-                                list.Add(reservation);
-                            }
+                            list.Add(reservation);
                         }
+
                     }
                 }
             }
@@ -96,7 +97,8 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
         public List<ReservasiEntity> ReadAll()
         {
             List<ReservasiEntity> list = new List<ReservasiEntity>();
-            string sql = "SELECT * FROM reservasi";
+            string sql = @"SELECT * 
+                           FROM reservasi";
 
             try
             {
@@ -140,7 +142,7 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             {
                 cmd.Parameters.AddWithValue("@id_reservasi", reservation.id_reservasi);
                 cmd.Parameters.AddWithValue("@id_client", reservation.id_client);
-                cmd.Parameters.AddWithValue("@id_room", reservation.  id_room);
+                cmd.Parameters.AddWithValue("@id_room", reservation.id_room);
                 cmd.Parameters.AddWithValue("@masuk", reservation.masuk);
                 cmd.Parameters.AddWithValue("@keluar", reservation.keluar);
 
@@ -176,7 +178,6 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
                     System.Diagnostics.Debug.WriteLine($"Delete error: {ex.Message}");
                 }
             }
-
             return result;
         }
     }

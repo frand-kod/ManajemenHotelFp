@@ -223,7 +223,8 @@ namespace Sistem_Manajemen_Hotel.View
             }
             catch (FormatException ex)
             {
-                MessageBox.Show("Pastikan input id client adalah angka.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Pastikan input id client adalah angka -- Kesalahan {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
             catch (Exception ex)
             {

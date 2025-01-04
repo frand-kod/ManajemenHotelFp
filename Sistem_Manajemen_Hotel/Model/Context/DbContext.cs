@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.IO;
 
 namespace Sistem_Manajemen_Hotel.Model.Context
 {
@@ -19,15 +20,16 @@ namespace Sistem_Manajemen_Hotel.Model.Context
         private SQLiteConnection GetOpenConnection()
         {
             SQLiteConnection conn = null; // deklarasi objek connection
-            try // penggunaan blok try-catch untuk penanganan error
+
+            try 
             {
-                // atur ulang lokasi database yang disesuaikan dengan
-                // lokasi database perpustakaan Anda
-                string dbName = @"D:\SEMESTER 3\Pemrograman Lanjut\Final\Sistem_Manajemen_Hotel\Sistem_Manajemen_Hotel\bin\Debug\database.db";
-                // deklarasi variabel connectionString, ref: https://www.connectionstrings.com/
-                string connectionString = string.Format("Data Source ={0}; FailIfMissing = True", dbName);
-                conn = new SQLiteConnection(connectionString); // buat objek connection
-                conn.Open(); // buka koneksi ke database
+                string dbName = "database.db"; // Nama file database
+                string appPath = AppDomain.CurrentDomain.BaseDirectory; // Lokasi folder aplikasi
+                string dbPath = Path.Combine(appPath, dbName); // Gabungkan path aplikasi dengan nama database
+
+                string connectionString = $"Data Source={dbPath}; FailIfMissing=True;";
+                conn = new SQLiteConnection(connectionString);
+                conn.Open();
             }
             // jika terjadi error di blok try, akan ditangani langsung oleh blok catch 
             catch (Exception ex)

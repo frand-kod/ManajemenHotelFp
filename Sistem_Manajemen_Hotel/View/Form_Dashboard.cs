@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Sistem_Manajemen_Hotel.Controller;
 
 namespace Sistem_Manajemen_Hotel.View
 {
@@ -19,7 +20,7 @@ namespace Sistem_Manajemen_Hotel.View
         public Form_Dashboard(string username)
         {
             InitializeComponent();
-            lblUsernameDashboard.Text = username;
+            lblUserNameLoginSuccesfully.Text = username;
         }
 
         private void lkbLogout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -27,9 +28,7 @@ namespace Sistem_Manajemen_Hotel.View
             DialogResult result = MessageBox.Show("Apakah Anda yakin ingin keluar?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                Form_Login loginFrom = new Form_Login();
-                loginFrom.Show();
-                this.Hide();
+                this.Close(); // Tutup form dashboard
             }
         }
         private void MovePanel(Control btn)
@@ -39,7 +38,7 @@ namespace Sistem_Manajemen_Hotel.View
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lblDateTime.Text = DateTime.Now.ToString("dd-MM-yyy hh:mm");
+            //lblDateTime.Text = DateTime.Now.ToString("dd-MM-yyy hh:mm");
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -90,20 +89,6 @@ namespace Sistem_Manajemen_Hotel.View
         private void btnReservation_Click(object sender, EventArgs e)
         {
 
-            /*
-             FrmTransaksi transaksiForm = transaksi1 as FrmTransaksi;
-
-            dashboard1.Visible = false;
-            barang1.Visible = false;
-            pelanggan1.Visible = false;
-            supplier1.Visible = false;
-            transaksi1.Visible = true;
-
-            if (transaksiForm != null)
-            {
-                transaksiForm.RefreshData();
-            }
-             */
             Reservation DashBoardreservation = reservation1 as Reservation;
             MovePanel(btnReservation);
             dashboard1.Visible = false;
@@ -117,9 +102,9 @@ namespace Sistem_Manajemen_Hotel.View
             }
         }
 
-        private void lblUsernameDashboard_Click(object sender, EventArgs e)
+        private void Form_Dashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            Application.Exit();
         }
     }
 }

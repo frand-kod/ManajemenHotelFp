@@ -51,15 +51,15 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(30, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 18);
+            this.label1.Size = new System.Drawing.Size(104, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Firstname :";
             // 
             // txtFirstname
             // 
-            this.txtFirstname.Location = new System.Drawing.Point(126, 29);
+            this.txtFirstname.Location = new System.Drawing.Point(140, 29);
             this.txtFirstname.Name = "txtFirstname";
-            this.txtFirstname.Size = new System.Drawing.Size(539, 26);
+            this.txtFirstname.Size = new System.Drawing.Size(525, 30);
             this.txtFirstname.TabIndex = 1;
             // 
             // btnAdd_Client
@@ -116,7 +116,7 @@
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(52, 150);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 18);
+            this.label4.Size = new System.Drawing.Size(82, 22);
             this.label4.TabIndex = 0;
             this.label4.Text = "Search :";
             // 
@@ -126,7 +126,7 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(33, 111);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 18);
+            this.label3.Size = new System.Drawing.Size(106, 22);
             this.label3.TabIndex = 0;
             this.label3.Text = "Phone No :";
             // 
@@ -136,29 +136,29 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(37, 71);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 18);
+            this.label2.Size = new System.Drawing.Size(105, 22);
             this.label2.TabIndex = 0;
             this.label2.Text = "Lastname :";
             // 
             // txtSearch_Client
             // 
-            this.txtSearch_Client.Location = new System.Drawing.Point(126, 147);
+            this.txtSearch_Client.Location = new System.Drawing.Point(140, 147);
             this.txtSearch_Client.Name = "txtSearch_Client";
-            this.txtSearch_Client.Size = new System.Drawing.Size(399, 26);
+            this.txtSearch_Client.Size = new System.Drawing.Size(385, 30);
             this.txtSearch_Client.TabIndex = 1;
             // 
             // txtPhoneNo
             // 
-            this.txtPhoneNo.Location = new System.Drawing.Point(126, 108);
+            this.txtPhoneNo.Location = new System.Drawing.Point(140, 108);
             this.txtPhoneNo.Name = "txtPhoneNo";
-            this.txtPhoneNo.Size = new System.Drawing.Size(539, 26);
+            this.txtPhoneNo.Size = new System.Drawing.Size(525, 30);
             this.txtPhoneNo.TabIndex = 1;
             // 
             // txtLastname
             // 
-            this.txtLastname.Location = new System.Drawing.Point(126, 68);
+            this.txtLastname.Location = new System.Drawing.Point(140, 68);
             this.txtLastname.Name = "txtLastname";
-            this.txtLastname.Size = new System.Drawing.Size(539, 26);
+            this.txtLastname.Size = new System.Drawing.Size(525, 30);
             this.txtLastname.TabIndex = 1;
             // 
             // btnDelete_Client
@@ -208,7 +208,7 @@
             // 
             // Client
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.grbClient);

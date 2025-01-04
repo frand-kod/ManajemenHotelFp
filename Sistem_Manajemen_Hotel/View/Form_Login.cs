@@ -10,53 +10,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.SQLite;
-using Sistem_Manajemen_Hotel.Model.Context;
+using Sistem_Manajemen_Hotel.Model;
 using Sistem_Manajemen_Hotel.View;
 using Dapper;
+using Sistem_Manajemen_Hotel.Model.Entity;
+using Sistem_Manajemen_Hotel.Controller;
+using System.Diagnostics;
 
 namespace Sistem_Manajemen_Hotel.View
 {
     public partial class Form_Login : Form
     {
-        private SQLiteConnection _conn;
-        public SQLiteConnection Conn
-        {
-            get { return _conn ?? (_conn = GetOpenConnection()); }
-        }
-        private SQLiteConnection GetOpenConnection()
-        {
-            SQLiteConnection conn = null;
-            try
-            {
-                string dbName = @"D:\SEMESTER 3\Pemrograman Lanjut\Final\Sistem_Manajemen_Hotel\Sistem_Manajemen_Hotel\bin\Debug\database.db";
+        private LoginController _loginController;
 
-                string connectionString = string.Format("Data Source={0};FailIfMissing=True", dbName);
-
-                conn = new SQLiteConnection(connectionString);
-                conn.Open();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.Print("Open Connection Error: {0}", ex.Message);
-            }
-            return conn;
-        }
         public Form_Login()
         {
             InitializeComponent();
-            // Di konstruktor atau pada saat inisialisasi komponen
-            txtUsernameLogin.KeyPress += new KeyPressEventHandler(txtUsername_Login_KeyPress);
-            txtPasswordLogin.KeyPress += new KeyPressEventHandler(txtPassword_Login_KeyPress);
+            _loginController = new LoginController();
         }
-        private void txtUsername_Login_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                e.Handled = true; // Menahan karakter 'Enter' agar tidak ditampilkan di TextBox username
-                txtUsernameLogin.Focus(); // Pindah fokus ke TextBox password
-            }
-        }
-
         private void txtPassword_Login_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -75,38 +46,37 @@ namespace Sistem_Manajemen_Hotel.View
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            try
+            string username = txtUsernameLogin.Text;
+            string password = txtPasswordLogin.Text;
+
+            var newLogin = new LoginEntity
             {
-                using (SQLiteConnection _conn = new SQLiteConnection("Data Source=D:\\SEMESTER 3\\Pemrograman Lanjut\\Final\\Sistem_Manajemen_Hotel\\Sistem_Manajemen_Hotel\\bin\\Debug\\database.db"))
+                Username = username,
+                Password = password,
+            };
+
+            bool isAuthentificated = _loginController.Login(newLogin);
+
+            MessageBox.Show(isAuthentificated ? "Login Berhasil.." : "Login Gagal..", "Notifikasi Login", MessageBoxButtons.OK);
+
+            // panggil controller login
+            if (isAuthentificated)
+            {
+                
+                // inisialisasi formDashboard dan set usernamenya
+                using (var dashboardForm = new Form_Dashboard(newLogin.Username))
                 {
-                    if (string.IsNullOrWhiteSpace(txtUsernameLogin.Text) || string.IsNullOrWhiteSpace(txtPasswordLogin.Text))
-                    {
-                        MessageBox.Show("Username dan Password harus diisi.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    string query = "SELECT COUNT(*) FROM login WHERE Username = @Username AND Password = @Password";
-                    var parameters = new { Username = txtUsernameLogin.Text, Password = txtPasswordLogin.Text };
-
-                    int count = _conn.QueryFirstOrDefault<int>(query, parameters);
-
-                    if (count > 0)
-                    {
-                        MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Form_Dashboard dashboard = new Form_Dashboard();
-                        dashboard.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Login Failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    this.Hide(); // Sembunyikan form login
+                    dashboardForm.ShowDialog(); // Tampilkan dashboard
                 }
+
+                this.Close(); // Tampilkan kembali form login jika logout
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Debug.WriteLine($" Data dari login_Cick --username {newLogin.Username} password {newLogin.Password}");
             }
+
         }
 
         private void pcbHide_MouseHover_1(object sender, EventArgs e)

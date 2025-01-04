@@ -17,7 +17,6 @@ using System.Diagnostics;
 
 namespace Sistem_Manajemen_Hotel.View
 {
-    
     public partial class Dashboard : UserControl
     {
         private RoomController roomController = new RoomController();
@@ -34,7 +33,6 @@ namespace Sistem_Manajemen_Hotel.View
                 return;
             }
         }
-
         private void UpdateRoomCountsLabel()
         {
             var controller = new RoomController();
@@ -43,21 +41,21 @@ namespace Sistem_Manajemen_Hotel.View
             lblValueSingle.Text = roomCounts.ContainsKey("Standard")
                 ? $"Standard: {roomCounts["Standard"]}"
                 : "Standard: 0";
-            Debug.WriteLine($"Standard: {roomCounts["Standard"]}");
+
             // Tambahkan label lain sesuai jenis kamar
             lblDoubleValue.Text = roomCounts.ContainsKey("Deluxe")
                 ? $"Deluxe: {roomCounts["Deluxe"]}"
                 : "Deluxe: 0";
-            Debug.WriteLine($"Deluxe: {roomCounts["Deluxe"]}");
+
             // Tambahkan label lain sesuai jenis kamar
             lblFamilyValue.Text = roomCounts.ContainsKey("Family")
                 ? $"Family: {roomCounts["Family"]}"
                 : "Family: 0";
-           // Debug.WriteLine($"Family: {roomCounts["Family"]}");
+ 
             lblSuiteValue.Text = roomCounts.ContainsKey("Suite")
                 ? $"Suite: {roomCounts["Suite"]}"
                 : "Suite: 0";
-            //Debug.WriteLine($"Suite: {roomCounts["Suite"]}");
+
 
         }
 

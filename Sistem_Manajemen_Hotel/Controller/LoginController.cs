@@ -8,43 +8,46 @@ using Sistem_Manajemen_Hotel.Model.Entity;
 using Sistem_Manajemen_Hotel.Model.Repository;
 using System.Data.SQLite;
 using Sistem_Manajemen_Hotel.Model.Context;
+using System.Runtime.Remoting.Contexts;
 
 namespace Sistem_Manajemen_Hotel.Controller
 {
     public class LoginController
     {
         private LoginRepository _Loginrepository;
-        public LoginController(LoginRepository loginRepository)
-        {
-            _Loginrepository = loginRepository;
-        }
-        public void CreateMasuk(string username, string password)
-        {
-            LoginEntity login = new LoginEntity
-            {
-                Username = username,
-                Password = password
-            };
 
-            _Loginrepository.Create(login);
-        }
-        public List<LoginEntity> GetAllMasuk()
+        public int SignUp(LoginEntity SignUp)
         {
-            return _Loginrepository.ReadAll();
-        }
-        public void UpdateMasuk(string username, string newPassword)
-        {
-            LoginEntity login = new LoginEntity
+            int result = 0;
+            using (DbContext context = new DbContext())
             {
-                Username = username,
-                Password = newPassword
-            };
+                // membuat objek class repository
+                _Loginrepository = new LoginRepository(context);
 
-            _Loginrepository.Update(login);
+                //masukkan user yang Signup
+                result = _Loginrepository.SignUp(SignUp);
+            }
+
+            return result;
+
         }
-        public void DeleteMasuk(string username)
+        public bool Login(LoginEntity Login)
         {
-            _Loginrepository.Delete(username);
+            bool isVerified = false;
+            using (DbContext context = new DbContext())
+            {
+                _Loginrepository = new LoginRepository(context);
+                if (Login != null)
+                {
+                    if (_Loginrepository.Login(Login))
+                    {   // set IsVerified -> True
+                        isVerified = true;
+                    }
+
+                }
+                return isVerified;
+            }
         }
+
     }
 }

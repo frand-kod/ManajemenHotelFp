@@ -4,47 +4,28 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dapper;
+using Sistem_Manajemen_Hotel.Controller;
 using Sistem_Manajemen_Hotel.Model.Context;
+using Sistem_Manajemen_Hotel.Model.Entity;
 
 namespace Sistem_Manajemen_Hotel.View
 {
+
     public partial class Form_SignUp : Form
     {
-        private readonly Sistem_Manajemen_Hotel.Model.Context.DbContext dbContext;
-        private SQLiteConnection _conn;
-        public SQLiteConnection Conn
-        {
-            get { return _conn ?? (_conn = GetOpenConnection()); }
-        }
-        private SQLiteConnection GetOpenConnection()
-        {
-            SQLiteConnection conn = null;
-            try
-            {
-                string dbName = @"D:\SEMESTER 3\Pemrograman Lanjut\Final\Sistem_Manajemen_Hotel\Sistem_Manajemen_Hotel\bin\Debug\database.db";
-
-                string connectionString = string.Format("Data Source={0};FailIfMissing=True", dbName);
-
-                conn = new SQLiteConnection(connectionString);
-                conn.Open();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.Print("Open Connection Error: {0}", ex.Message);
-            }
-            return conn;
-        }
+        private LoginController _loginController;
         public Form_SignUp()
         {
+            _loginController = new LoginController();
             InitializeComponent();
             txtUsernameSignUp.KeyDown += txtUsernameSignUp_KeyDown;
             txtPasswordSignUp.KeyDown += txtPasswordSignUp_KeyDown;
-            dbContext = new Sistem_Manajemen_Hotel.Model.Context.DbContext();
         }
         private void txtUsernameSignUp_KeyDown(object sender, KeyEventArgs e)
         {
@@ -70,40 +51,17 @@ namespace Sistem_Manajemen_Hotel.View
             string username = txtUsernameSignUp.Text;
             string password = txtPasswordSignUp.Text;
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            var newSignUp = new LoginEntity
             {
-                MessageBox.Show("Please enter a username and password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                Username = username,
+                Password = password,
+            };
 
-            if (InsertUserData(username, password))
-            {
-                MessageBox.Show("Signup successful! You can now log in.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Form_Login login = new Form_Login();
-                login.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Data Sudah Ada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private bool InsertUserData(string username, string password)
-        {
-            try
-            {
-                using (SQLiteConnection connection = Conn)
-                {
-                    int rowsAffected = connection.Execute("INSERT INTO login (Username, Password) VALUES (@Username, @Password)",
-                        new { Username = username, Password = password });
+            // panggil controller login
+            int result = _loginController.SignUp(newSignUp);
 
-                    return rowsAffected > 0;
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            MessageBox.Show(result == 1 ? "SignUp Berhasil.." : "SignUp Gagal", "Notifikasi Login", MessageBoxButtons.OK);
+
         }
 
         private void lkbRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

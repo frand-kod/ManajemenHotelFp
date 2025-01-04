@@ -78,7 +78,7 @@
             this.cmbListClientId.FormattingEnabled = true;
             this.cmbListClientId.Location = new System.Drawing.Point(133, 99);
             this.cmbListClientId.Name = "cmbListClientId";
-            this.cmbListClientId.Size = new System.Drawing.Size(392, 26);
+            this.cmbListClientId.Size = new System.Drawing.Size(392, 30);
             this.cmbListClientId.TabIndex = 6;
             // 
             // DateInsertFieldOut
@@ -86,7 +86,7 @@
             this.DateInsertFieldOut.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateInsertFieldOut.Location = new System.Drawing.Point(587, 99);
             this.DateInsertFieldOut.Name = "DateInsertFieldOut";
-            this.DateInsertFieldOut.Size = new System.Drawing.Size(367, 26);
+            this.DateInsertFieldOut.Size = new System.Drawing.Size(367, 30);
             this.DateInsertFieldOut.TabIndex = 5;
             // 
             // DateInsertFieldIn
@@ -94,7 +94,7 @@
             this.DateInsertFieldIn.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateInsertFieldIn.Location = new System.Drawing.Point(587, 48);
             this.DateInsertFieldIn.Name = "DateInsertFieldIn";
-            this.DateInsertFieldIn.Size = new System.Drawing.Size(367, 26);
+            this.DateInsertFieldIn.Size = new System.Drawing.Size(367, 30);
             this.DateInsertFieldIn.TabIndex = 5;
             this.DateInsertFieldIn.ValueChanged += new System.EventHandler(this.DateInsertFieldIn_ValueChanged);
             // 
@@ -103,7 +103,7 @@
             this.cmbListRoomId.FormattingEnabled = true;
             this.cmbListRoomId.Location = new System.Drawing.Point(133, 48);
             this.cmbListRoomId.Name = "cmbListRoomId";
-            this.cmbListRoomId.Size = new System.Drawing.Size(392, 26);
+            this.cmbListRoomId.Size = new System.Drawing.Size(392, 30);
             this.cmbListRoomId.TabIndex = 4;
             // 
             // label1
@@ -112,7 +112,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(539, 105);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 18);
+            this.label1.Size = new System.Drawing.Size(51, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Out :";
             // 
@@ -122,7 +122,7 @@
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(31, 150);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 18);
+            this.label4.Size = new System.Drawing.Size(117, 22);
             this.label4.TabIndex = 0;
             this.label4.Text = "Search        :";
             // 
@@ -132,7 +132,7 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(552, 54);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 18);
+            this.label3.Size = new System.Drawing.Size(36, 22);
             this.label3.TabIndex = 0;
             this.label3.Text = "In :";
             // 
@@ -142,7 +142,7 @@
             this.lblClient.ForeColor = System.Drawing.Color.Black;
             this.lblClient.Location = new System.Drawing.Point(29, 102);
             this.lblClient.Name = "lblClient";
-            this.lblClient.Size = new System.Drawing.Size(97, 18);
+            this.lblClient.Size = new System.Drawing.Size(117, 22);
             this.lblClient.TabIndex = 0;
             this.lblClient.Text = "Id Client      :";
             // 
@@ -152,7 +152,7 @@
             this.lblIdRoom.ForeColor = System.Drawing.Color.Black;
             this.lblIdRoom.Location = new System.Drawing.Point(29, 51);
             this.lblIdRoom.Name = "lblIdRoom";
-            this.lblIdRoom.Size = new System.Drawing.Size(69, 18);
+            this.lblIdRoom.Size = new System.Drawing.Size(83, 22);
             this.lblIdRoom.TabIndex = 0;
             this.lblIdRoom.Text = "Id Room";
             // 
@@ -167,9 +167,9 @@
             // 
             // txtSearch_Reservation
             // 
-            this.txtSearch_Reservation.Location = new System.Drawing.Point(133, 147);
+            this.txtSearch_Reservation.Location = new System.Drawing.Point(154, 147);
             this.txtSearch_Reservation.Name = "txtSearch_Reservation";
-            this.txtSearch_Reservation.Size = new System.Drawing.Size(392, 26);
+            this.txtSearch_Reservation.Size = new System.Drawing.Size(371, 30);
             this.txtSearch_Reservation.TabIndex = 1;
             // 
             // btnDelete_Reservation
@@ -234,7 +234,7 @@
             // 
             // Reservation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.grbClient);

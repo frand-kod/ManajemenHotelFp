@@ -96,8 +96,6 @@ namespace Sistem_Manajemen_Hotel.View
                 {
                     MessageBox.Show("Data Client gagal disimpan !!!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Debug.WriteLine($"Firstname: {firstname}, Lastname: {lastname}, Phone: {phone}");
-
-
                 }
             }
             catch (FormatException)
@@ -109,7 +107,6 @@ namespace Sistem_Manajemen_Hotel.View
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btnUpdate_Client_Click(object sender, EventArgs e)
         {
             if (lvwClient.SelectedItems.Count > 0)
@@ -157,7 +154,6 @@ namespace Sistem_Manajemen_Hotel.View
                 MessageBox.Show("Pilih salah satu data untuk diedit!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         private void btnDelete_Client_Click(object sender, EventArgs e)
         {
             if (lvwClient.SelectedItems.Count > 0)
@@ -203,10 +199,8 @@ namespace Sistem_Manajemen_Hotel.View
                 txtFirstname.Text = selectedItem.SubItems[2].Text;
                 txtLastname.Text = selectedItem.SubItems[3].Text;
                 txtPhoneNo.Text = selectedItem.SubItems[4].Text;
-
             }
         }
-
         private void btnSearch_Client_Click(object sender, EventArgs e)
         {
             string keyword = txtSearch_Client.Text.Trim().ToLower(); // Get the search keyword

@@ -38,17 +38,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lblUsernameDashboard = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.lblDateTime = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lkbLogout = new System.Windows.Forms.LinkLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.reservation1 = new Sistem_Manajemen_Hotel.View.Reservation();
-            this.room1 = new Sistem_Manajemen_Hotel.View.Room();
-            this.client1 = new Sistem_Manajemen_Hotel.View.Client();
+            this.lblUserNameLoginSuccesfully = new System.Windows.Forms.Label();
             this.dashboard1 = new Sistem_Manajemen_Hotel.View.Dashboard();
+            this.client1 = new Sistem_Manajemen_Hotel.View.Client();
+            this.room1 = new Sistem_Manajemen_Hotel.View.Room();
+            this.reservation1 = new Sistem_Manajemen_Hotel.View.Reservation();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -155,7 +154,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(27, 140);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(239, 23);
+            this.label2.Size = new System.Drawing.Size(292, 27);
             this.label2.TabIndex = 2;
             this.label2.Text = "Sistem Manajemen Hotel";
             // 
@@ -172,7 +171,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
-            this.panel2.Controls.Add(this.lblUsernameDashboard);
+            this.panel2.Controls.Add(this.lblUserNameLoginSuccesfully);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -181,18 +180,6 @@
             this.panel2.Size = new System.Drawing.Size(1034, 174);
             this.panel2.TabIndex = 1;
             // 
-            // lblUsernameDashboard
-            // 
-            this.lblUsernameDashboard.AutoSize = true;
-            this.lblUsernameDashboard.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsernameDashboard.ForeColor = System.Drawing.Color.White;
-            this.lblUsernameDashboard.Location = new System.Drawing.Point(110, 126);
-            this.lblUsernameDashboard.Name = "lblUsernameDashboard";
-            this.lblUsernameDashboard.Size = new System.Drawing.Size(18, 19);
-            this.lblUsernameDashboard.TabIndex = 2;
-            this.lblUsernameDashboard.Text = "?";
-            this.lblUsernameDashboard.Click += new System.EventHandler(this.lblUsernameDashboard_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -200,14 +187,13 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(7, 126);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 19);
+            this.label1.Size = new System.Drawing.Size(126, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "WELCOME : ";
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Controls.Add(this.lblDateTime);
             this.panel3.Controls.Add(this.pictureBox2);
             this.panel3.Controls.Add(this.lkbLogout);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -215,17 +201,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1034, 100);
             this.panel3.TabIndex = 0;
-            // 
-            // lblDateTime
-            // 
-            this.lblDateTime.AutoSize = true;
-            this.lblDateTime.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
-            this.lblDateTime.Location = new System.Drawing.Point(17, 42);
-            this.lblDateTime.Name = "lblDateTime";
-            this.lblDateTime.Size = new System.Drawing.Size(18, 19);
-            this.lblDateTime.TabIndex = 2;
-            this.lblDateTime.Text = "?";
             // 
             // pictureBox2
             // 
@@ -246,45 +221,23 @@
             this.lkbLogout.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.lkbLogout.Location = new System.Drawing.Point(869, 41);
             this.lkbLogout.Name = "lkbLogout";
-            this.lkbLogout.Size = new System.Drawing.Size(85, 22);
+            this.lkbLogout.Size = new System.Drawing.Size(101, 27);
             this.lkbLogout.TabIndex = 0;
             this.lkbLogout.TabStop = true;
             this.lkbLogout.Text = "Log Out";
             this.lkbLogout.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.lkbLogout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkbLogout_LinkClicked);
             // 
-            // reservation1
+            // lblUserNameLoginSuccesfully
             // 
-            this.reservation1.BackColor = System.Drawing.Color.White;
-            this.reservation1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reservation1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reservation1.Location = new System.Drawing.Point(300, 174);
-            this.reservation1.Margin = new System.Windows.Forms.Padding(4);
-            this.reservation1.Name = "reservation1";
-            this.reservation1.Size = new System.Drawing.Size(1034, 468);
-            this.reservation1.TabIndex = 2;
-            // 
-            // room1
-            // 
-            this.room1.BackColor = System.Drawing.Color.White;
-            this.room1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.room1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.room1.Location = new System.Drawing.Point(300, 174);
-            this.room1.Margin = new System.Windows.Forms.Padding(4);
-            this.room1.Name = "room1";
-            this.room1.Size = new System.Drawing.Size(1034, 468);
-            this.room1.TabIndex = 3;
-            // 
-            // client1
-            // 
-            this.client1.BackColor = System.Drawing.Color.White;
-            this.client1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.client1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.client1.Location = new System.Drawing.Point(300, 174);
-            this.client1.Margin = new System.Windows.Forms.Padding(4);
-            this.client1.Name = "client1";
-            this.client1.Size = new System.Drawing.Size(1034, 468);
-            this.client1.TabIndex = 4;
+            this.lblUserNameLoginSuccesfully.AutoSize = true;
+            this.lblUserNameLoginSuccesfully.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserNameLoginSuccesfully.ForeColor = System.Drawing.Color.White;
+            this.lblUserNameLoginSuccesfully.Location = new System.Drawing.Point(127, 126);
+            this.lblUserNameLoginSuccesfully.Name = "lblUserNameLoginSuccesfully";
+            this.lblUserNameLoginSuccesfully.Size = new System.Drawing.Size(131, 23);
+            this.lblUserNameLoginSuccesfully.TabIndex = 2;
+            this.lblUserNameLoginSuccesfully.Text = "<username>";
             // 
             // dashboard1
             // 
@@ -297,9 +250,42 @@
             this.dashboard1.Size = new System.Drawing.Size(1034, 468);
             this.dashboard1.TabIndex = 5;
             // 
+            // client1
+            // 
+            this.client1.BackColor = System.Drawing.Color.White;
+            this.client1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.client1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.client1.Location = new System.Drawing.Point(300, 174);
+            this.client1.Margin = new System.Windows.Forms.Padding(4);
+            this.client1.Name = "client1";
+            this.client1.Size = new System.Drawing.Size(1034, 468);
+            this.client1.TabIndex = 4;
+            // 
+            // room1
+            // 
+            this.room1.BackColor = System.Drawing.Color.White;
+            this.room1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.room1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.room1.Location = new System.Drawing.Point(300, 174);
+            this.room1.Margin = new System.Windows.Forms.Padding(4);
+            this.room1.Name = "room1";
+            this.room1.Size = new System.Drawing.Size(1034, 468);
+            this.room1.TabIndex = 3;
+            // 
+            // reservation1
+            // 
+            this.reservation1.BackColor = System.Drawing.Color.White;
+            this.reservation1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reservation1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reservation1.Location = new System.Drawing.Point(300, 174);
+            this.reservation1.Margin = new System.Windows.Forms.Padding(4);
+            this.reservation1.Name = "reservation1";
+            this.reservation1.Size = new System.Drawing.Size(1034, 468);
+            this.reservation1.TabIndex = 2;
+            // 
             // Form_Dashboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1334, 642);
             this.Controls.Add(this.dashboard1);
@@ -313,6 +299,7 @@
             this.Name = "Form_Dashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Dashboard";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Dashboard_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -337,9 +324,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.LinkLabel lkbLogout;
         private System.Windows.Forms.Button btnClient;
-        private System.Windows.Forms.Label lblUsernameDashboard;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblDateTime;
         private System.Windows.Forms.Button btnRoom;
         private System.Windows.Forms.Button btnReservation;
         private System.Windows.Forms.Timer timer1;
@@ -347,5 +332,6 @@
         private Room room1;
         private Client client1;
         private Dashboard dashboard1;
+        private System.Windows.Forms.Label lblUserNameLoginSuccesfully;
     }
 }

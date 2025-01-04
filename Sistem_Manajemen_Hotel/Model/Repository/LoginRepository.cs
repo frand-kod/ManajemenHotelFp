@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sistem_Manajemen_Hotel.Model.Entity;
 using System.Data.SQLite;
 using Sistem_Manajemen_Hotel.Model.Context;
-using System.Windows.Forms;
-using System.Drawing;
+using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace Sistem_Manajemen_Hotel.Model.Repository
 {
@@ -18,15 +14,18 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
         {
             _conn = context.Conn;
         }
-        public int Create(LoginEntity login)
+        public int SignUp(LoginEntity login)
         {
             int result = 0;
-            string sql = @"INSERT INTO login (Username, Password) VALUES (@username, @password)";
+            string sql = @"INSERT INTO login (username, password) VALUES (@username, @password)";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
+                // ambil password dari form login untuk di kirim 
+                string hashedPassword = HashPassword(login.Password);
+
                 cmd.Parameters.AddWithValue("@username", login.Username);
-                cmd.Parameters.AddWithValue("@password", login.Password);
+                cmd.Parameters.AddWithValue("@password", hashedPassword);
 
                 try
                 {
@@ -35,119 +34,64 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.Print("Create error: {0}", ex.Message);
+                    Debug.Print("Create error: {0}", ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
                 }
-
             }
             return result;
         }
-        public List<LoginEntity> ReadAll()
+
+        public bool Login(LoginEntity login)
         {
-            List<LoginEntity> list = new List<LoginEntity>(); // Ganti List<Login> menjadi List<Masuk>
-            try
-            {
-                string sql = @"SELECT Username, Password FROM Login";
+            bool isAuthentificated = false;
 
-                using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
-                {
-                    using (SQLiteDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            LoginEntity login = new LoginEntity(); // Ganti Masuk login = new Masuk
-                            login.Username = reader["Username"].ToString();
-                            login.Password = reader["Password"].ToString();
-
-
-                            list.Add(login); // Ubah Masuk menjadi login
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.Print("ReadAll error: {0}", ex.Message);
-            }
-            return list;
-        }
-
-        public List<LoginEntity> ReadByNama(string nama)
-        {
-            List<LoginEntity> list = new List<LoginEntity>();
-            try
-            {
-
-                string sql = @"SELECT Username, Password FROM Login";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
-                {
-                    cmd.Parameters.AddWithValue("@nama", string.Format("%{0}%", nama));
-
-                    using (SQLiteDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            while (reader.Read())
-                            {
-                                LoginEntity login = new LoginEntity(); // Ganti Masuk login = new Masuk
-                                login.Username = reader["Username"].ToString();
-                                login.Password = reader["Password"].ToString();
-
-
-                                list.Add(login); // Ubah Masuk menjadi login
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.Print("ReadByNama error: {0}", ex.Message);
-            }
-            return list;
-        }
-        public int Update(LoginEntity login)
-        {
-            int result = 0;
-            string sql = @"UPDATE Login SET Password = @password WHERE Username = @username";
+            string sql = "SELECT password FROM login WHERE username = @username";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
-                cmd.Parameters.AddWithValue("@password", login.Password);
                 cmd.Parameters.AddWithValue("@username", login.Username);
 
                 try
                 {
-                    result = cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.Print("Update error: {0}", ex.Message);
-                }
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
 
+                            // validasi password 
+                            string storageHashedPass = reader["password"].ToString();
+
+                            // bandingan hasi password yang telah di hash di Database login.password dengan hash dari login.Password
+
+                            isAuthentificated = VerifyPassword(login.Password, storageHashedPass);
+                        }
+                    }
+                }
+                catch (Exception err)
+                {
+                    Debug.Print("-- Kesalahan Login {0}", err.Message);
+                }
             }
-            return result;
+            return isAuthentificated;
         }
-        public int Delete(string username)
+
+        // hashing Method =============
+        private string HashPassword(string password)
         {
-            int result = 0;
+            SHA256 hash = SHA256.Create();
 
-            string sql = @"DELETE FROM login WHERE Username = @username";
+            // buat hasing dengan SHA dengan hasil byte
+            byte[] passwordHash = hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
 
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
-            {
-                cmd.Parameters.AddWithValue("@username", username);
+            // kembalikan hasil hash yang telah di convert
+            return Convert.ToBase64String(passwordHash);
+        }
 
-                try
-                {
-                    result = cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.Print("Update error: {0}", ex.Message);
-                }
-            }
-            return result;
+        private bool VerifyPassword(string password, string hashPassword)
+        {
+            string hashedInput = HashPassword(password);
+
+            return hashedInput == hashPassword;
         }
     }
 }

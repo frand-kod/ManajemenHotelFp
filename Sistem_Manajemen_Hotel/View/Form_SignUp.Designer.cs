@@ -65,9 +65,9 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.pcbHide);
             this.groupBox1.Controls.Add(this.lkbRegister);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.pcbHide);
             this.groupBox1.Controls.Add(this.pcbShow);
             this.groupBox1.Controls.Add(this.txtPasswordSignUp);
             this.groupBox1.Controls.Add(this.txtUsernameSignUp);
@@ -92,7 +92,7 @@
             this.lkbRegister.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.lkbRegister.Location = new System.Drawing.Point(235, 375);
             this.lkbRegister.Name = "lkbRegister";
-            this.lkbRegister.Size = new System.Drawing.Size(75, 16);
+            this.lkbRegister.Size = new System.Drawing.Size(90, 19);
             this.lkbRegister.TabIndex = 8;
             this.lkbRegister.TabStop = true;
             this.lkbRegister.Text = "Login here";
@@ -106,7 +106,7 @@
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.label4.Location = new System.Drawing.Point(87, 375);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(142, 16);
+            this.label4.Size = new System.Drawing.Size(171, 19);
             this.label4.TabIndex = 7;
             this.label4.Text = "Have you logged in?";
             // 
@@ -138,14 +138,14 @@
             // 
             this.txtPasswordSignUp.Location = new System.Drawing.Point(64, 215);
             this.txtPasswordSignUp.Name = "txtPasswordSignUp";
-            this.txtPasswordSignUp.Size = new System.Drawing.Size(270, 23);
+            this.txtPasswordSignUp.Size = new System.Drawing.Size(270, 27);
             this.txtPasswordSignUp.TabIndex = 5;
             // 
             // txtUsernameSignUp
             // 
             this.txtUsernameSignUp.Location = new System.Drawing.Point(63, 140);
             this.txtUsernameSignUp.Name = "txtUsernameSignUp";
-            this.txtUsernameSignUp.Size = new System.Drawing.Size(300, 23);
+            this.txtUsernameSignUp.Size = new System.Drawing.Size(300, 27);
             this.txtUsernameSignUp.TabIndex = 5;
             // 
             // label3
@@ -155,7 +155,7 @@
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.label3.Location = new System.Drawing.Point(59, 103);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 19);
+            this.label3.Size = new System.Drawing.Size(120, 23);
             this.label3.TabIndex = 4;
             this.label3.Text = "Username :";
             // 
@@ -166,7 +166,7 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.label2.Location = new System.Drawing.Point(59, 179);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 19);
+            this.label2.Size = new System.Drawing.Size(112, 23);
             this.label2.TabIndex = 4;
             this.label2.Text = "Password :";
             // 
@@ -201,7 +201,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
             this.label1.Location = new System.Drawing.Point(604, 380);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(302, 72);
+            this.label1.Size = new System.Drawing.Size(367, 82);
             this.label1.TabIndex = 9;
             this.label1.Text = "SISTEM MANAJEMEN \r\nHOTEL";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -218,7 +218,7 @@
             // 
             // Form_SignUp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 511);
             this.Controls.Add(this.label1);

@@ -34,17 +34,21 @@ namespace Sistem_Manajemen_Hotel.View
             if (lvwRoom.SelectedItems.Count > 0)
             {
                 var selectedItem = lvwRoom.SelectedItems[0];
-                txtRooomId.Text = selectedItem.SubItems[1].Text;
-                txtNumberRoom.Text = selectedItem.SubItems[2].Text;
-               
-                cmbRoomType.Text = selectedItem.SubItems[3].Text;
-                txtPrice.Text = selectedItem.SubItems[4].Text;
+                txtRooomId.Text = selectedItem.SubItems[0].Text;
+                txtNumberRoom.Text = selectedItem.SubItems[1].Text;
 
-                string status = selectedItem.SubItems[5].Text;  // Get the status ("Yes" or "No")
+                cmbRoomType.Text = selectedItem.SubItems[2].Text;
+                txtPrice.Text = selectedItem.SubItems[3].Text;
+
+                string status = selectedItem.SubItems[4].Text;  // Get the status ("Yes" or "No")
 
                 // Update the RadioButtons based on the status
                 rdbAvailabe.Checked = (status == "Yes");
                 rdbNotAvail.Checked = (status == "No");
+
+                Debug.WriteLine($"View - Adding Room:id Room ={selectedItem.SubItems[0]}  RoomNumber = {selectedItem.SubItems[1]}, TypeRoom = {selectedItem.SubItems[2]}, Price = {selectedItem.SubItems[3]}, Availability = {selectedItem.SubItems[4]}");
+
+                //View - Adding Room:id Room =ListViewSubItem: {2}  RoomNumber = ListViewSubItem: {44332}, TypeRoom = ListViewSubItem: {suite}, Price = ListViewSubItem: {3322}, Availability = ListViewSubItem: {Yes}
 
             }
         }
@@ -61,11 +65,13 @@ namespace Sistem_Manajemen_Hotel.View
             lvwRoom.View = System.Windows.Forms.View.Details;
             lvwRoom.FullRowSelect = true;
             lvwRoom.GridLines = true;
-            lvwRoom.Columns.Add("NO.", 65, HorizontalAlignment.Center);
-            lvwRoom.Columns.Add("Nama Kamar ", 200, HorizontalAlignment.Center);
+            lvwRoom.Columns.Add("No.", 65, HorizontalAlignment.Center);
+            lvwRoom.Columns.Add("Nomor Kamar ", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Jenis Kamar", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Harga", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Status", 200, HorizontalAlignment.Center);
+            lvwRoom.Columns.Add("Name", 200, HorizontalAlignment.Center);
+            
         }
         private void btnAdd_Room_Click(object sender, EventArgs e)
         {
@@ -148,7 +154,7 @@ namespace Sistem_Manajemen_Hotel.View
         {
             try
             {
-                string idRoom = lvwRoom.SelectedItems[0].SubItems[1].Text;
+                string idRoom = lvwRoom.SelectedItems[0].SubItems[0].Text;
                 string roomNumber = txtNumberRoom.Text;
                 string roomType = cmbRoomType.SelectedItem?.ToString();
                 int price = Convert.ToInt32(txtPrice.Text);
@@ -159,9 +165,9 @@ namespace Sistem_Manajemen_Hotel.View
                 {
                     IdRoom = int.Parse(idRoom),
                     RoomNumber = int.Parse(roomNumber),
+                    Availability = availability,
                     TypeRoom = roomType,
-                    Price = price,
-                    Availability = availability
+                    Price = price
                 };
 
                 int result = controller.Update(UpdateRoom);
@@ -233,7 +239,7 @@ namespace Sistem_Manajemen_Hotel.View
                      
                      */
                     // Ambil indeks dari item yang dipilih di ListView
-                    string idRoom = lvwRoom.SelectedItems[0].SubItems[1].Text;
+                    string idRoom = lvwRoom.SelectedItems[0].SubItems[0].Text;
 
                     // Ambil Barang yang sesuai dari List<Barang>
                     RoomEntity RoomDelete = new RoomEntity
@@ -245,13 +251,13 @@ namespace Sistem_Manajemen_Hotel.View
                     int result = controller.Delete(RoomDelete);
                     if (result > 0)
                     {
-                        MessageBox.Show("Data Client berhasil dihapus!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Data Room berhasil dihapus!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadDataRoom(); // Refresh data setelah menghapus data barang
                         cmbRoomType.SelectedIndex = -1;  // Reset ComboBox
                     }
                     else
                     {
-                        MessageBox.Show("Data Client gagal dihapus!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Data Room gagal dihapus!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
                 catch (Exception ex)
@@ -266,6 +272,16 @@ namespace Sistem_Manajemen_Hotel.View
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TBSearch_TextChanged(object sender, EventArgs e)
         {
 
         }

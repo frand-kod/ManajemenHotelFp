@@ -17,14 +17,14 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
         public RoomRepository(DbContext context)
         {
             _conn = context.Conn;
-            
+
         }
         public int Create(RoomEntity room)
         {
             int result = 0;
             string sql = @"
-    INSERT INTO room (room_number, type_room, harga, availability)
-    VALUES (@room_number, @type_room, @price, @availability)";
+                   INSERT INTO room (room_number, type_room, harga, availability)
+                            VALUES (@room_number, @type_room, @price, @availability)";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
@@ -78,8 +78,6 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.Print("ReadAll error: {0}", ex.Message);
-
-                
             }
             return list;
         }
@@ -88,7 +86,6 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             List<RoomEntity> list = new List<RoomEntity>();
             try
             {
-
                 string sql = @"SELECT id_room, room_number, availability, type_room FROM room WHERE id_room LIKE @id_room";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
@@ -154,7 +151,8 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
         public int Delete(RoomEntity room)
         {
             int result = 0;
-            string sql = @"DELETE FROM room WHERE id_room = @id_room";
+            string sql = @"DELETE FROM room 
+                           WHERE id_room = @id_room";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
@@ -180,9 +178,9 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             Dictionary<string, int> roomCounts = new Dictionary<string, int>();
 
             string sql = @"
-        SELECT type_room, COUNT(*) AS jumlah_kamar
-        FROM room
-        GROUP BY type_room";
+                    SELECT type_room, COUNT(*) AS jumlah_kamar
+                    FROM room
+                    GROUP BY type_room";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
@@ -203,7 +201,6 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
                     Debug.WriteLine($"Error fetching room counts: {ex.Message}");
                 }
             }
-
             return roomCounts;
         }
 
