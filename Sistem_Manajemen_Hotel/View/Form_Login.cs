@@ -1,18 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Data.SQLite;
-using Sistem_Manajemen_Hotel.Model;
-using Sistem_Manajemen_Hotel.View;
-using Dapper;
 using Sistem_Manajemen_Hotel.Model.Entity;
 using Sistem_Manajemen_Hotel.Controller;
 using System.Diagnostics;
@@ -61,8 +48,7 @@ namespace Sistem_Manajemen_Hotel.View
 
             // panggil controller login
             if (isAuthentificated)
-            {
-                
+            {                
                 // inisialisasi formDashboard dan set usernamenya
                 using (var dashboardForm = new Form_Dashboard(newLogin.Username))
                 {
@@ -76,26 +62,21 @@ namespace Sistem_Manajemen_Hotel.View
             {
             Debug.WriteLine($" Data dari login_Cick --username {newLogin.Username} password {newLogin.Password}");
             }
-
         }
-
         private void pcbHide_MouseHover_1(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(pcbHide, "Hide Password");
         }
-
         private void pcbShow_MouseHover_1(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(pcbShow, "Show Password");
         }
-
         private void pcbHide_Click(object sender, EventArgs e)
         {
             txtPasswordLogin.UseSystemPasswordChar = true;
             pcbHide.Hide();
             pcbShow.Show();
         }
-
         private void pcbShow_Click(object sender, EventArgs e)
         {
             txtPasswordLogin.UseSystemPasswordChar = false;

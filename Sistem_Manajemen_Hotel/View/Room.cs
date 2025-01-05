@@ -28,13 +28,14 @@ namespace Sistem_Manajemen_Hotel.View
             InisialisasiListView();
             LoadDataRoom();
             lvwRoom.SelectedIndexChanged += listRoom_SelectedIndexChanged;
+            TBSearch.TextChanged += TbSearch_TextChanged_1;
+
         }
         private void listRoom_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvwRoom.SelectedItems.Count > 0)
             {
                 var selectedItem = lvwRoom.SelectedItems[0];
-                txtRooomId.Text = selectedItem.SubItems[0].Text;
                 txtNumberRoom.Text = selectedItem.SubItems[1].Text;
 
                 cmbRoomType.Text = selectedItem.SubItems[2].Text;
@@ -70,7 +71,6 @@ namespace Sistem_Manajemen_Hotel.View
             lvwRoom.Columns.Add("Jenis Kamar", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Harga", 200, HorizontalAlignment.Center);
             lvwRoom.Columns.Add("Status", 200, HorizontalAlignment.Center);
-            lvwRoom.Columns.Add("Name", 200, HorizontalAlignment.Center);
             
         }
         private void btnAdd_Room_Click(object sender, EventArgs e)
@@ -271,19 +271,56 @@ namespace Sistem_Manajemen_Hotel.View
             }
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+
+        private void label1_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        private void btnSearch_Click_1(object sender, EventArgs e)
+        private void TbSearch_TextChanged_1(object sender, EventArgs e)
         {
+            string keyword = TBSearch.Text.Trim().ToLower(); // Ambil kata kunci pencarian
 
-        }
+            // Filter data berdasarkan kata kunci
+            var filteredRooms = listRoom.Where(room =>
+                room.IdRoom.ToString().ToLower().Contains(keyword) ||
+                room.RoomNumber.ToString().ToLower().Contains(keyword) ||
+                room.TypeRoom.ToLower().Contains(keyword) ||
+                room.Price.ToString().ToLower().Contains(keyword) ||
+                room.Availability.ToLower().Contains(keyword)
+            ).ToList();
 
-        private void TBSearch_TextChanged(object sender, EventArgs e)
-        {
+            // Bersihkan ListView sebelum memperbarui data
+            lvwRoom.Items.Clear();
 
+            if (filteredRooms.Any())
+            {
+                // Tampilkan hasil pencarian di ListView
+                foreach (var filtered in filteredRooms)
+                {
+                    var noUrut = lvwRoom.Items.Count + 1;
+                    var item = new ListViewItem(noUrut.ToString());
+                    item.SubItems.Add(filtered.IdRoom.ToString());
+                    item.SubItems.Add(filtered.RoomNumber.ToString());
+                    item.SubItems.Add(filtered.TypeRoom.ToString());
+                    item.SubItems.Add(filtered.Price.ToString());
+
+                    lvwRoom.Items.Add(item);
+                   Debug.WriteLine($"Menambahkan item: {filtered.IdRoom}, {filtered.RoomNumber}, {filtered.TypeRoom}, {filtered.Price}");
+
+                }
+
+                // Atur lebar kolom secara otomatis
+                foreach (ColumnHeader column in lvwRoom.Columns)
+                {
+                    column.Width = -2; // -2 artinya lebar kolom disesuaikan dengan konten
+                }
+            }
+            else
+            {
+                // Jika tidak ada data yang cocok
+                lvwRoom.Items.Clear();
+            }
         }
     }
 }

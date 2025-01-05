@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Sistem_Manajemen_Hotel.Controller;
 using Sistem_Manajemen_Hotel.Model.Entity;
@@ -43,9 +38,9 @@ namespace Sistem_Manajemen_Hotel.View
             roomController = new RoomController();
             reservasiController = new ReservasiController();
             InisialisasiListView();
+            lvwReservation.SelectedIndexChanged += listReservation_SelectedIndexChanged;
             LoadDataReservation();
             ConfigureComboBoxes();
-            lvwReservation.SelectedIndexChanged += listReservation_SelectedIndexChanged;
         }
         private void InisialisasiListView()
         {
@@ -242,20 +237,12 @@ namespace Sistem_Manajemen_Hotel.View
                 {
                     // Ambil id_reservasi dari SubItems di ListView (bukan menggunakan selectedIndex)
                     int id_reservasi = Convert.ToInt32(lvwReservation.SelectedItems[0].SubItems[1].Text);
-                    Debug.WriteLine($"id_reservasi: {id_reservasi}");
 
                     // Ambil data lainnya dari ComboBox dan DateTimePicker
                     int id_room = Convert.ToInt32(cmbListRoomId.SelectedItem);
-                    Debug.WriteLine($"id_room: {id_room}");
-
                     int id_client = Convert.ToInt32(cmbListClientId.SelectedItem);
-                    Debug.WriteLine($"id_client: {id_client}");
-
                     string masuk = DateInsertFieldIn.Text;
-                    Debug.WriteLine($"Tanggal Masuk: {masuk}");
-
                     string keluar = DateInsertFieldOut.Text;
-                    Debug.WriteLine($"Tanggal Keluar: {keluar}");
 
                     // Buat objek ReservasiEntity dengan data yang diambil
                     ReservasiEntity reservation = new ReservasiEntity
@@ -284,6 +271,7 @@ namespace Sistem_Manajemen_Hotel.View
                     else
                     {
                         MessageBox.Show("Data Reservation gagal diubah!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        Debug.WriteLine($"Gagal Mengubah -- ReservasiEntity: id_reservasi={reservation.id_reservasi}, id_client={reservation.id_client}, id_room={reservation.id_room}, masuk={reservation.masuk}, keluar={reservation.keluar}");
                     }
                 }
                 catch (FormatException ex)
@@ -345,34 +333,46 @@ namespace Sistem_Manajemen_Hotel.View
             }
         }
 
-        private void btnSearch_Reservation_Click(object sender, EventArgs e)
+        private void txtSearch_Reservation_TextChanged(object sender, EventArgs e)
         {
-            string keyword = txtSearch_Reservation.Text.Trim().ToLower(); // Get the search keyword
+            string keyword = txtSearch_Reservation.Text.Trim().ToLower(); // Ambil kata kunci pencarian
 
-            // Filter the barangList based on the keyword
-            var filterReservasi = listReservation.Where(reservasi =>
-                reservasi.id_room.ToString().ToLower().Contains(keyword.ToLower())
+            // Filter data berdasarkan kata kunci
+            var filteredReservations = listReservation.Where(reservation =>
+                reservation.id_reservasi.ToString().ToLower().Contains(keyword)
             ).ToList();
 
-            // Clear the ListView
+            // Bersihkan ListView sebelum memperbarui data
             lvwReservation.Items.Clear();
 
-            // Display the filtered items in the ListView
-            foreach (var reservation in filterReservasi)
+            if (filteredReservations.Any())
             {
-                var noUrut = lvwReservation.Items.Count + 1;
-                var item = new ListViewItem(noUrut.ToString());
-                item.SubItems.Add(reservation.id_reservasi.ToString());
-                item.SubItems.Add(reservation.id_room.ToString());
-                item.SubItems.Add(reservation.masuk.ToString());
-                item.SubItems.Add(reservation.keluar);
-                lvwReservation.Items.Add(item);
+                // Tampilkan hasil pencarian di ListView
+                foreach (var reservation in filteredReservations)
+                {
+                    var noUrut = lvwReservation.Items.Count + 1;
+                    var item = new ListViewItem(noUrut.ToString());
+                    item.SubItems.Add(reservation.id_reservasi.ToString());
+                    item.SubItems.Add(reservation.id_room.ToString());
+                    item.SubItems.Add(reservation.id_client.ToString());
+                    item.SubItems.Add(reservation.masuk);
+                    item.SubItems.Add(reservation.keluar);
+
+                    lvwReservation.Items.Add(item);
+                }
+
+                // Atur lebar kolom secara otomatis
+                foreach (ColumnHeader column in lvwReservation.Columns)
+                {
+                    column.Width = -2; // -2 artinya lebar kolom disesuaikan dengan konten
+                }
+            }
+            else
+            {
+                // Jika tidak ada data yang cocok
+                lvwReservation.Items.Clear();
             }
         }
 
-        private void DateInsertFieldIn_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

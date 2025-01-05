@@ -28,13 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnAdd_Room = new System.Windows.Forms.Button();
             this.btnUpdate_Room = new System.Windows.Forms.Button();
             this.btnDelete_Room = new System.Windows.Forms.Button();
             this.lvwRoom = new System.Windows.Forms.ListView();
             this.grbClient = new System.Windows.Forms.GroupBox();
-            this.txtRooomId = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.lblPrice = new System.Windows.Forms.Label();
             this.rdbNotAvail = new System.Windows.Forms.RadioButton();
@@ -44,6 +43,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.RoomType = new System.Windows.Forms.Label();
             this.txtNumberRoom = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TBSearch = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.grbClient.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,7 +105,7 @@
             // 
             // grbClient
             // 
-            this.grbClient.Controls.Add(this.txtRooomId);
+            this.grbClient.Controls.Add(this.TBSearch);
             this.grbClient.Controls.Add(this.label1);
             this.grbClient.Controls.Add(this.txtPrice);
             this.grbClient.Controls.Add(this.lblPrice);
@@ -128,29 +130,11 @@
             this.grbClient.Text = "[ Search Room : ]";
             this.grbClient.Enter += new System.EventHandler(this.grbClient_Enter);
             // 
-            // txtRooomId
-            // 
-            this.txtRooomId.Location = new System.Drawing.Point(173, 39);
-            this.txtRooomId.Name = "txtRooomId";
-            this.txtRooomId.Size = new System.Drawing.Size(330, 30);
-            this.txtRooomId.TabIndex = 19;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(28, 47);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 22);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Room Id";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(673, 115);
+            this.txtPrice.Location = new System.Drawing.Point(194, 111);
             this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(288, 30);
+            this.txtPrice.Size = new System.Drawing.Size(309, 30);
             this.txtPrice.TabIndex = 17;
             this.txtPrice.TextChanged += new System.EventHandler(this.txtPrice_TextChanged);
             // 
@@ -158,7 +142,7 @@
             // 
             this.lblPrice.AutoSize = true;
             this.lblPrice.ForeColor = System.Drawing.Color.Black;
-            this.lblPrice.Location = new System.Drawing.Point(522, 118);
+            this.lblPrice.Location = new System.Drawing.Point(28, 111);
             this.lblPrice.Name = "lblPrice";
             this.lblPrice.Size = new System.Drawing.Size(110, 22);
             this.lblPrice.TabIndex = 16;
@@ -167,7 +151,7 @@
             // rdbNotAvail
             // 
             this.rdbNotAvail.AutoSize = true;
-            this.rdbNotAvail.Location = new System.Drawing.Point(783, 78);
+            this.rdbNotAvail.Location = new System.Drawing.Point(269, 140);
             this.rdbNotAvail.Name = "rdbNotAvail";
             this.rdbNotAvail.Size = new System.Drawing.Size(53, 26);
             this.rdbNotAvail.TabIndex = 15;
@@ -178,7 +162,7 @@
             // rdbAvailabe
             // 
             this.rdbAvailabe.AutoSize = true;
-            this.rdbAvailabe.Location = new System.Drawing.Point(698, 78);
+            this.rdbAvailabe.Location = new System.Drawing.Point(204, 140);
             this.rdbAvailabe.Name = "rdbAvailabe";
             this.rdbAvailabe.Size = new System.Drawing.Size(59, 26);
             this.rdbAvailabe.TabIndex = 14;
@@ -194,9 +178,9 @@
             "Standard",
             "Suite",
             "Family"});
-            this.cmbRoomType.Location = new System.Drawing.Point(172, 78);
+            this.cmbRoomType.Location = new System.Drawing.Point(194, 75);
             this.cmbRoomType.Name = "cmbRoomType";
-            this.cmbRoomType.Size = new System.Drawing.Size(331, 30);
+            this.cmbRoomType.Size = new System.Drawing.Size(309, 30);
             this.cmbRoomType.TabIndex = 11;
             this.cmbRoomType.SelectedIndexChanged += new System.EventHandler(this.cmbRoomType_SelectedIndexChanged);
             // 
@@ -204,7 +188,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(522, 80);
+            this.label2.Location = new System.Drawing.Point(28, 144);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(170, 22);
             this.label2.TabIndex = 8;
@@ -214,7 +198,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(28, 121);
+            this.label5.Location = new System.Drawing.Point(28, 42);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(147, 22);
             this.label5.TabIndex = 9;
@@ -224,7 +208,7 @@
             // 
             this.RoomType.AutoSize = true;
             this.RoomType.ForeColor = System.Drawing.Color.Black;
-            this.RoomType.Location = new System.Drawing.Point(28, 86);
+            this.RoomType.Location = new System.Drawing.Point(28, 78);
             this.RoomType.Name = "RoomType";
             this.RoomType.Size = new System.Drawing.Size(118, 22);
             this.RoomType.TabIndex = 9;
@@ -232,10 +216,34 @@
             // 
             // txtNumberRoom
             // 
-            this.txtNumberRoom.Location = new System.Drawing.Point(172, 118);
+            this.txtNumberRoom.Location = new System.Drawing.Point(194, 39);
             this.txtNumberRoom.Name = "txtNumberRoom";
-            this.txtNumberRoom.Size = new System.Drawing.Size(329, 30);
+            this.txtNumberRoom.Size = new System.Drawing.Size(307, 30);
             this.txtNumberRoom.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(550, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(119, 22);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Search By Id";
+            this.label1.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // TBSearch
+            // 
+            this.TBSearch.Location = new System.Drawing.Point(554, 78);
+            this.TBSearch.Name = "TBSearch";
+            this.TBSearch.Size = new System.Drawing.Size(407, 30);
+            this.TBSearch.TabIndex = 20;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(19, 19);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // Room
             // 
@@ -269,7 +277,8 @@
         private System.Windows.Forms.TextBox txtNumberRoom;
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label lblPrice;
-        private System.Windows.Forms.TextBox txtRooomId;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox TBSearch;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

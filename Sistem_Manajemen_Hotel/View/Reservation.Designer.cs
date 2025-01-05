@@ -42,7 +42,6 @@
             this.txtSearch_Reservation = new System.Windows.Forms.TextBox();
             this.btnDelete_Reservation = new System.Windows.Forms.Button();
             this.btnUpdate_Reservation = new System.Windows.Forms.Button();
-            this.btnSearch_Reservation = new System.Windows.Forms.Button();
             this.btnAdd_Reservation = new System.Windows.Forms.Button();
             this.grbClient.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +61,6 @@
             this.grbClient.Controls.Add(this.txtSearch_Reservation);
             this.grbClient.Controls.Add(this.btnDelete_Reservation);
             this.grbClient.Controls.Add(this.btnUpdate_Reservation);
-            this.grbClient.Controls.Add(this.btnSearch_Reservation);
             this.grbClient.Controls.Add(this.btnAdd_Reservation);
             this.grbClient.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbClient.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
@@ -96,8 +94,7 @@
             this.DateInsertFieldIn.Name = "DateInsertFieldIn";
             this.DateInsertFieldIn.Size = new System.Drawing.Size(367, 30);
             this.DateInsertFieldIn.TabIndex = 5;
-            this.DateInsertFieldIn.ValueChanged += new System.EventHandler(this.DateInsertFieldIn_ValueChanged);
-            // 
+           //
             // cmbListRoomId
             // 
             this.cmbListRoomId.FormattingEnabled = true;
@@ -171,6 +168,7 @@
             this.txtSearch_Reservation.Name = "txtSearch_Reservation";
             this.txtSearch_Reservation.Size = new System.Drawing.Size(371, 30);
             this.txtSearch_Reservation.TabIndex = 1;
+            this.txtSearch_Reservation.TextChanged += new System.EventHandler(this.txtSearch_Reservation_TextChanged);
             // 
             // btnDelete_Reservation
             // 
@@ -201,21 +199,6 @@
             this.btnUpdate_Reservation.Text = "Update";
             this.btnUpdate_Reservation.UseVisualStyleBackColor = false;
             this.btnUpdate_Reservation.Click += new System.EventHandler(this.btnUpdate_Reservation_Click);
-            // 
-            // btnSearch_Reservation
-            // 
-            this.btnSearch_Reservation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(146)))), ((int)(((byte)(255)))));
-            this.btnSearch_Reservation.FlatAppearance.BorderSize = 0;
-            this.btnSearch_Reservation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch_Reservation.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch_Reservation.ForeColor = System.Drawing.Color.White;
-            this.btnSearch_Reservation.Location = new System.Drawing.Point(531, 147);
-            this.btnSearch_Reservation.Name = "btnSearch_Reservation";
-            this.btnSearch_Reservation.Size = new System.Drawing.Size(134, 27);
-            this.btnSearch_Reservation.TabIndex = 2;
-            this.btnSearch_Reservation.Text = "Search";
-            this.btnSearch_Reservation.UseVisualStyleBackColor = false;
-            this.btnSearch_Reservation.Click += new System.EventHandler(this.btnSearch_Reservation_Click);
             // 
             // btnAdd_Reservation
             // 
@@ -263,7 +246,6 @@
         private System.Windows.Forms.TextBox txtSearch_Reservation;
         private System.Windows.Forms.Button btnDelete_Reservation;
         private System.Windows.Forms.Button btnUpdate_Reservation;
-        private System.Windows.Forms.Button btnSearch_Reservation;
         private System.Windows.Forms.Button btnAdd_Reservation;
         private System.Windows.Forms.ComboBox cmbListClientId;
     }

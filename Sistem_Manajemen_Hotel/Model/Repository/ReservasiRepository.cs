@@ -128,8 +128,6 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             }
             return list;
         }
-
-
         public int Update(ReservasiEntity reservation)
         {
             int result = 0;//id_reservasi,id_client, id_room, masuk, keluar
@@ -158,11 +156,11 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             }
             return result;
         }
-
         public int Delete(int id_reservasi)
         {
             int result = 0;
-            string sql = "DELETE FROM reservasi WHERE id_reservasi = @id_reservasi";
+            string sql = @"DELETE FROM reservasi 
+                           WHERE id_reservasi = @id_reservasi";
 
             using (SQLiteCommand cmd = new SQLiteCommand(sql, _conn))
             {
@@ -180,5 +178,7 @@ namespace Sistem_Manajemen_Hotel.Model.Repository
             }
             return result;
         }
-    }
+
+    
+}
 }
