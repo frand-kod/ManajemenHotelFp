@@ -25,12 +25,12 @@ namespace Sistem_Manajemen_Hotel.Controller
                MessageBox.Show("Id reservasi harus valid!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                return 0;
             }
-            if (string.IsNullOrEmpty(reservation.id_client))
+            if (string.IsNullOrEmpty(reservation.id_client.ToString()))
             {
                MessageBox.Show("Id client harus ada !", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                return 0;
             }
-            if (string.IsNullOrEmpty(reservation.room_type))
+            if (string.IsNullOrEmpty(reservation.id_room.ToString()))
             {
                MessageBox.Show("Tipe ruangan harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                return 0;
