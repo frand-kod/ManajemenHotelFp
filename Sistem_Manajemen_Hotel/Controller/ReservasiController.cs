@@ -20,11 +20,6 @@ namespace Sistem_Manajemen_Hotel.Controller
         {
             int result = 0;
 
-            if (reservation.id_reservasi <= 0)
-            {
-               MessageBox.Show("Id reservasi harus valid!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-               return 0;
-            }
             if (string.IsNullOrEmpty(reservation.id_client.ToString()))
             {
                MessageBox.Show("Id client harus ada !", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
